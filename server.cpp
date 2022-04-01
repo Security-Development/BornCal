@@ -1,6 +1,8 @@
 #include <iostream>
 #include <sys/socket.h>
 
+#define PORT 9999
+
 /***
    * return sucess => 1 || faild => 0
    */
