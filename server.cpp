@@ -1,11 +1,11 @@
 #include <iostream>
 #include <sys/socket.h>
 
-using namespace std;
-
 #define PORT 9999
 #define MAXIMUN_LENGTH 8
 #define MAX_BUFF 512
+
+using namespace std;
 
 /***
    * return sucess => 1 || faild => 0
