@@ -1,4 +1,4 @@
-# BornChatting
+# BornChat
 
 ```
 Server : linux ubuntu 20.14
