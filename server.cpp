@@ -13,7 +13,7 @@ using namespace std;
 int main(int argc, char const *argv[]) {
 	int server, connect;
 	struct sockaddr_in address;
-	char rBuff[] = {0}; // recive Buffer
+	char rBuff[MAX_BUFF] = {0}; // recive Buffer
 	
 	/***
 	   * TCP => SOCK_STREAM
