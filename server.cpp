@@ -13,8 +13,10 @@ using namespace std;
    */
 int main(int argc, char const *argv[]) {
         int server, connect;
-        sockaddr_in address;
+        sockaddr_in ipv4;
         char rBuff[MAX_BUFF] = {0}; // recive Buffer
+
+        ipv4.sin_port = 3000; // port setting
 
         /***
            * TCP => SOCK_STREAM
@@ -23,16 +25,17 @@ int main(int argc, char const *argv[]) {
            * IPv6 Protocol => AF_INET6
            */
         if( (server = socket(AF_INET, SOCK_DGRAM, 0)) < 0 )
-        if( (connect = bind(server, (struct sockaddr *) &address, sizeof(address))) < 0 )
+        if( (connect = bind(server, (struct sockaddr *) &ipv4, sizeof(ipv4))) < 0 )
         if( listen(server, MAXIMUN_LENGTH) < 0 )
                 return 0; //could not create server
 
         // IPV4 Info Print
-        char *pIp = inet_ntoa(address.sin_addr);
-        uint16_t pPort = htons(address.sin_port);
+        char *pIp = inet_ntoa(ipv4.sin_addr);
+        uint16_t pPort = htons(ipv4.sin_port);
         printf("Suscess Create Server\nAddress : %s\nPort : %d", pIp, pPort);
 
 
 
         return 1;
 }
+
