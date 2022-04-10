@@ -17,7 +17,7 @@ int main(int argc, char const *argv[]) {
         char rBuff[MAX_BUFF] = {0}; // recive Buffer
 
         ipv4.sin_family = AF_INET; // ipv4 change
-        ipv4.sin_addr_s_addr = INADDR_ANY; // Allow anyone to access the server
+        ipv4.sin_addr.s_addr = INADDR_ANY; // Allow anyone to access the server
         ipv4.sin_port = htons(5000); // port setting
 
         /***
