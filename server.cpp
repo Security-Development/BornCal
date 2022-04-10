@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sys/socket.h>
+#include <unistd.h>
 #include <arpa/inet.h>
 
 #define PORT 9999
@@ -34,9 +35,15 @@ int main(int argc, char const *argv[]) {
         // IPV4 Info Print
         char *pIp = inet_ntoa(ipv4.sin_addr);
         uint16_t pPort = htons(ipv4.sin_port);
-        printf("Suscess Create Server\nAddress : %s\nPort : %d", pIp, pPort);
+        printf("Suscess Open Server\nAddress : %s\nPort : %d\n", pIp, pPort);
 
+        /* "1" is faster than "true" */
+        while(0) { // start Server
 
+        }
+
+        close(server); // Close Server
+        cout << "The server has been shut down.";
 
         return 1;
 }
