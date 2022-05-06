@@ -7,7 +7,7 @@
 
 void error_handling(char *message) {
     fputs(message,stderr);
-    fputc("\n",stderr);
+    fputs("\n",stderr);
     exit(1);
 }
 
@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
     int clnt_sock;
 
     struct sockaddr_in serv_addr;
-    struct sockaddr_in clnt_sock;
+    struct sockaddr_in clnt_addr;
     socklen_t clnt_addr_size;
 
     char message[]="Hello World!";
@@ -32,14 +32,14 @@ int main(int argc, char *argv[]) {
     memset(&serv_addr,0,sizeof(serv_addr));
     serv_addr.sin_family=AF_INET;
     serv_addr.sin_addr.s_addr=htonl(INADDR_ANY);
-    serv_addr.sin_port=htons(atio(argv[1]));
+    serv_addr.sin_port=htons(atoi(argv[1]));
 
     if(bind(serv_sock, (struct sockaddr*) &serv_addr, sizeof(serv_addr))==-1) error_handling("bind() error");
     if(listen(serv_sock,5)==-1) error_handling("listen() error");
 
     clnt_addr_size = sizeof(clnt_addr);
     clnt_sock=accept(serv_sock, (struct sockaddr*)&clnt_addr,&clnt_addr_size);
-    if(clnt_sock==-1) error_handling("accept() error");
+    if(clnt_sock == -1) error_handling("accept() error");
 
     write(clnt_sock, message, sizeof(message));
     close(clnt_sock);
