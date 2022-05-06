@@ -1,0 +1,9 @@
+기본적으로 클라이언트와 서버를 구성하는 코드들 중에서 계속 사용하고싶은것들이 있었습니다.
+
+신호를 클라이언트쪽에서 보내서 서버에서 받는 행위를 재시작을 하지 않고 계속 할 수 있도록 유지하는것이 목표입니다.
+
+
+Basically, there were some codes that made up the client and server that I wanted to keep using.
+
+The goal is to send a signal from the client side so that the behavior received from the server can continue without restarting.
+

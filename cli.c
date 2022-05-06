@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
-
+#define _CRT_SECURE_NO_WARNINGS
 void error_handling(char *message);
 
 int main(int argc, char* argv[]) {
@@ -24,9 +24,16 @@ int main(int argc, char* argv[]) {
     serv_addr.sin_family=AF_INET;
     serv_addr.sin_addr.s_addr=inet_addr(argv[1]);
     serv_addr.sin_port=htons(atoi(argv[2]));
+    int userans = 1;
+    while (1) {
+        printf("userans : ");
+        scanf("%d",&userans);
+        if(userans == 0) {
+            break;
+        }
 
-    if(connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr))==-1) error_handling("connect() error!");
-
+        if (connect(sock, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) == -1) error_handling("connect() error!");
+    }
     str_len=read(sock, message, sizeof(message)-1);
     if(str_len==-1) error_handling("read() error!");
 
@@ -39,5 +46,5 @@ int main(int argc, char* argv[]) {
 void error_handling(char *message) {
     fputs(message,stderr);
     fputc('\n',stderr);
-    exit(1);
+    //exit(1);
 }
