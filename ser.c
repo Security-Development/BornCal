@@ -59,6 +59,7 @@ int main(int argc, char *argv[]) {
         printf("813\n");
         clnt_addr_size = sizeof(clnt_addr);
         printf("814\n");
+        printf("time now : %ld",clock());
         clnt_sock=accept(serv_sock, (struct sockaddr*)&clnt_addr,&clnt_addr_size);
         printf("82\n");
         if(clnt_sock == -1) {
