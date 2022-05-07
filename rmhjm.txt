@@ -1,9 +1,22 @@
-기본적으로 클라이언트와 서버를 구성하는 코드들 중에서 계속 사용하고싶은것들이 있었습니다.
+위의 조건대로 프로세스를 재시작 하지 않고서 계속 신호를 보내고(클라이언트) 신소를 받는(서버) 코드를 완성했습니다.
+이외에도 일정 시간(1초) 간격으로 신호를 보내는 코드는 완성했습니다.
 
-신호를 클라이언트쪽에서 보내서 서버에서 받는 행위를 재시작을 하지 않고 계속 할 수 있도록 유지하는것이 목표입니다.
+앞으로 해결해야할 문제는 이것들을 어떻게 주고받느냐입니다.
+일방적으로 주는것도, 받는것도 아닌
+주고받는것이 가능해야합니다.
+
+멀티스레드와 GUI가 필요한 시점입니다.
+
+저(홍제만)의 역할은 서버의 코드를 작성하는것이니 멀티스레드를 통해 주고받는 코드를 개발하고 완성하는것이 현재의 목표입니다
 
 
-Basically, there were some codes that made up the client and server that I wanted to keep using.
+We have completed the code (server) that continues to send signals (client) and receive identification (server) without restarting the process according to the above conditions.
+In addition, we have completed the code that sends signals at regular intervals of 1 second.
 
-The goal is to send a signal from the client side so that the behavior received from the server can continue without restarting.
+The question that needs to be addressed in the future is how to exchange them.
+It's not a one-sided gift
+It has to be possible to give and take.
 
+It's time for multi-threads and GUI.
+
+My role is to write the code for the server, so my current goal is to develop and complete code to send and receive through multi-threads
