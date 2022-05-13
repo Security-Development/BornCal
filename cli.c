@@ -31,12 +31,11 @@ int main(int argc, char* argv[]) {
         serv_addr.sin_port=htons(atoi(argv[2]));
 
         char message[30];
-        while (1) {
-            if ((int)(time(NULL) - start) > 1 && count < 10) {
+        /*
+        while (1) { if ((int)(time(NULL) - start) > 1 && count < 10) {
                 count++;
-                break;
-            }
-        }
+                break;}}
+         */
         if (connect(sock, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) == -1) error_handling("connect() error!");
 
         str_len=read(sock, message, sizeof(message)-1);
