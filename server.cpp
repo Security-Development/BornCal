@@ -5,7 +5,7 @@
 
 #define PORT 9999
 #define MAXIMUN_LENGTH 8
-#define MAX_BUFF 512
+#define MAX_BUFF 64
 
 using namespace std;
 
@@ -13,8 +13,8 @@ using namespace std;
    * return sucess => 1 || faild => 0
    */
 int main(int argc, char const *argv[]) {
-        int server, connect;
-        sockaddr_in ipv4;
+        int server, connect, client;
+        sockaddr_in ipv4, client;
         char rBuff[MAX_BUFF] = {0}; // recive Buffer
 
         ipv4.sin_family = AF_INET; // ipv4 change
@@ -38,8 +38,12 @@ int main(int argc, char const *argv[]) {
         printf("Suscess Open Server\nAddress : %s\nPort : %d\n", pIp, pPort);
 
         /* "1" is faster than "true" */
-        while(0) { // start Server
-
+        while(1) { // start Server
+            int cLength = sizeof(client);
+            recvform(server, MAX_BUFF, MSG_OOB, (struct sockaddr *)&client, &cLength);
+            char message[MAX_BUFF];
+            scanf_s("%s", message); // overflow protected
+            sendto(sock, message, sizeof(message) / sizeof(char), 0, (struct sockaddr *)&client, &cLength);
         }
 
         close(server); // Close Server
