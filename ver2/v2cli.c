@@ -9,7 +9,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 void error_handling(char *message);
 int check_ans(char *message);
-void stoper();
+void stoper(char *mssg);
 
 //cli , client , receiver
 //int argc, char *argv[]
@@ -45,10 +45,13 @@ int receiver() {
 
         memset(&serv_addr, 0, sizeof(serv_addr));
         serv_addr.sin_family=AF_INET;
+
         //serv_addr.sin_addr.s_addr=inet_addr(argv[1]);
         serv_addr.sin_addr.s_addr=inet_addr(address);
+
         //serv_addr.sin_port=htons(atoi(argv[2]));
-        serv_addr.sin_port=htons(atoi(port));
+        //serv_addr.sin_port=htons(atoi(port));
+        serv_addr.sin_port=htons(7904);
 
         char message[30];
         /*

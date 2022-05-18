@@ -5,13 +5,14 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <time.h>
+#include <process.h>
 #include <string.h>
 #define _CRT_SECURE_NO_WARNINGS
-void error_handling(char *message) {
-    fputs(message,stderr);
-    fputs("\n",stderr);
-    exit(1);
-}
+
+void error_handling(char *message);
+int check_ans(char *message);
+void stoper(char *mssg);
+void Inputing(void* n);
 
 int sender(int argc, char *argv[]) {
     printf("1\n");
@@ -67,10 +68,101 @@ int sender(int argc, char *argv[]) {
     close(serv_sock);
     return 0;
 }
+int receiver() {
+    stoper("receiver");
+    //argc : arg count
+    //argv : arg value
 
-int main() {
+    //argv[1] : address , string
+    //argv[2] : port number , string
+
+    int sock;
+    struct sockaddr_in serv_addr;
+
+    int str_len;
+
+    /*
+    if(argc!=3) {
+        printf("Usage : %s <IP> <port>\n",argv[0]);
+        exit(1);
+    }
+    */
+
+    int count = 0;
+    while (1) {
+        time_t start = time(NULL);
+
+        sock=socket(PF_INET, SOCK_STREAM, 0);
+        if(sock==-1) error_handling("spclet() error");
+
+        memset(&serv_addr, 0, sizeof(serv_addr));
+        serv_addr.sin_family=AF_INET;
+
+        //serv_addr.sin_addr.s_addr=inet_addr(argv[1]);
+        serv_addr.sin_addr.s_addr=inet_addr(address);
+
+        //serv_addr.sin_port=htons(atoi(argv[2]));
+        //serv_addr.sin_port=htons(atoi(port));
+        serv_addr.sin_port=htons(7904);
+
+        char message[30];
+        /*
+        while (1) { if ((int)(time(NULL) - start) > 1 && count < 10) {
+                count++;
+                break;}}
+         */
+        if (connect(sock, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) == -1) error_handling("connect() error!");
+
+        str_len=read(sock, message, sizeof(message)-1);
+        if(str_len==-1) error_handling("read() error!");
+        printf("<Message from server: '%s'> \n",message);
+        close(sock);
+    }
+
     return 0;
 }
 
+int main() {
+    printf("server, Stand By!");
+    //_beginthread(Inputing, 0, (void*)0);
+    _beginthread(Inputing, 0, (void*)0);
+    while(1) {}
+    return 0;
+}
+void Inputing(void* n) {
+    printf("Entered Inputing");
+    char an[30];
+    printf("say something :");
+    scanf("%s",an);
+    printf("good");
 
+}
+void error_handling(char *message) {
+    fputs(message,stderr);
+    fputs("\n",stderr);
+    exit(1);
+}
 
+int check_ans(char *message) {
+    getchar();
+    while(1) {
+        printf("%s right? (Y / N) :",message);
+        char ans;
+        scanf("%c",&ans);
+        getchar();
+        if(ans=='Y') {
+            return 1;
+        } else if(ans=='N') {
+            return 0;
+        } else {
+            printf("Y or N plz\n");
+        }
+    }
+}
+
+void stoper(char* mssg) {
+    char ans[100];
+    printf("Enter anything for KeepGoing(%s)",mssg);
+    scanf("%s",ans);
+    //free(ans);
+}
