@@ -37,7 +37,7 @@ int main(int argc, char const *argv[]) {
 
         // IPV4 Info Print
         char *pIp = inet_ntoa(ipv4.sin_addr);
-        char resMessage[MAX_BUFF];
+        char reqMessage[MAX_BUFF];
         int cLength;
         uint16_t pPort = htons(ipv4.sin_port);
         printf("Suscess Open Server\nAddress : %s\nPort : %d\n", pIp, pPort);
@@ -45,9 +45,9 @@ int main(int argc, char const *argv[]) {
         /* "1" is faster than "true" */
         while(1) { // start Server
             cLength = sizeof(cAddr);
-            recvfrom(server, resMessage, MAX_BUFF, MSG_OOB, (struct sockaddr *)&cAddr, (socklen_t *)&cLength);
-            printf(" Request Message >> %s\n", resMessage);
-            sendto(server, resMessage, sizeof(resMessage) / sizeof(char), MSG_OOB, (struct sockaddr *)&cAddr, (socklen_t)cLength);
+            recvfrom(server, reqMessage, MAX_BUFF, MSG_OOB, (struct sockaddr *)&cAddr, (socklen_t *)&cLength);
+            printf(" Request Message >> %s\n", reqMessage);
+            sendto(server, reqMessage, sizeof(reqMessage) / sizeof(char), MSG_OOB, (struct sockaddr *)&cAddr, (socklen_t)cLength);
 
 
         }
