@@ -14,7 +14,7 @@ using namespace std;
    */
 int main(int argc, char const *argv[]) {
         int server, connect, client;
-        sockaddr_in ipv4, client;
+        sockaddr_in ipv4, cAddr;
         char rBuff[MAX_BUFF] = {0}; // recive Buffer
 
         ipv4.sin_family = AF_INET; // ipv4 change
@@ -34,16 +34,19 @@ int main(int argc, char const *argv[]) {
 
         // IPV4 Info Print
         char *pIp = inet_ntoa(ipv4.sin_addr);
+        char resMessage[MAX_BUFF];
+        int cLength;
         uint16_t pPort = htons(ipv4.sin_port);
         printf("Suscess Open Server\nAddress : %s\nPort : %d\n", pIp, pPort);
 
         /* "1" is faster than "true" */
         while(1) { // start Server
-            int cLength = sizeof(client);
-            recvform(server, MAX_BUFF, MSG_OOB, (struct sockaddr *)&client, &cLength);
-            char message[MAX_BUFF];
-            scanf_s("%s", message); // overflow protected
-            sendto(sock, message, sizeof(message) / sizeof(char), 0, (struct sockaddr *)&client, &cLength);
+            cLength = sizeof(cAddr);
+            recvfrom(server, resMessage, MAX_BUFF, MSG_OOB, (struct sockaddr *)&cAddr, (socklen_t *)&cLength);
+            printf(" Request Message >> %s\n", resMessage);
+            sendto(server, message, sizeof(message) / sizeof(char), MSG_OOB, (struct sockaddr *)&cAddr, (socklen_t)cLength);
+
+
         }
 
         close(server); // Close Server
