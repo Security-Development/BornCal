@@ -1,4 +1,5 @@
-#include <iostream>
+include <iostream>
+#include <cstring>
 #include <sys/socket.h>
 #include <unistd.h>
 #include <arpa/inet.h>
@@ -15,7 +16,9 @@ using namespace std;
 int main(int argc, char const *argv[]) {
         int server, connect, client;
         sockaddr_in ipv4, cAddr;
-        char rBuff[MAX_BUFF] = {0}; // recive Buffer
+        
+        memset(&ipv4, 0, sizeof(ipv4));
+        memset(&cAddr, 0, sizeof(cAddr));
 
         ipv4.sin_family = AF_INET; // ipv4 change
         ipv4.sin_addr.s_addr = INADDR_ANY; // Allow anyone to access the server
@@ -44,7 +47,7 @@ int main(int argc, char const *argv[]) {
             cLength = sizeof(cAddr);
             recvfrom(server, resMessage, MAX_BUFF, MSG_OOB, (struct sockaddr *)&cAddr, (socklen_t *)&cLength);
             printf(" Request Message >> %s\n", resMessage);
-            sendto(server, message, sizeof(message) / sizeof(char), MSG_OOB, (struct sockaddr *)&cAddr, (socklen_t)cLength);
+            sendto(server, resMessage, sizeof(resMessage) / sizeof(char), MSG_OOB, (struct sockaddr *)&cAddr, (socklen_t)cLength);
 
 
         }
