@@ -13,6 +13,10 @@
 int main(int argc, char* argv[])
 {
     int sock;
+
+    short Sequence_Number = 0;
+    short Acknowledge_Number = 0;
+
     struct sockaddr_in serv_addr;
     int server_addr_size;
     char sendBuff[BUFF_SIZE];
@@ -37,10 +41,9 @@ int main(int argc, char* argv[])
 
         char msg[BUFF_SIZE];
         fgets(msg, BUFF_SIZE, stdin);
-        short Sequence_Number = 0;
-        short Acknowledge_Number = 0;
+        memset(&Sequence_Number,0,sizeof(Sequence_Number));
         //need add codes here
-        sprintf(sendBuff,"%s",msg);
+        sprintf(sendBuff,"%s"+(char*)Sequence_Number+(char*)Acknowledge_Number,msg);
         sentBytes = sendto(sock,sendBuff,strlen(sendBuff),0,(struct sockaddr*)&serv_addr, sizeof(serv_addr));
         receivedBytes = recvfrom(sock,readBuff,BUFF_SIZE,0,(struct sockaddr*)&serv_addr, &server_addr_size);
         printf("%lu bytes read\n", receivedBytes);

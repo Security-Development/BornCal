@@ -22,7 +22,8 @@ int main(int argc, char* argv[]) {
     while (1) {
         time_t start = time(NULL);
 
-        sock=socket(PF_INET, SOCK_STREAM, 0);
+        //sock=socket(PF_INET, SOCK_STREAM, 0);
+        sock=socket(PF_INET, SOCK_DGRAM, 0);
         if(sock==-1) error_handling("spclet() error");
 
         memset(&serv_addr, 0, sizeof(serv_addr));
@@ -36,7 +37,21 @@ int main(int argc, char* argv[]) {
                 count++;
                 break;}}
          */
-        if (connect(sock, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) == -1) error_handling("connect() error!");
+        printf("Ready Accept\n");
+        printf("break1\n");
+        while (1) {
+            printf("break2\n");
+            if (connect(sock, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) == -1) {
+                char arrans[30];
+                printf("con err\n");
+                scanf("%s",arrans);
+                //error_handling("connect() error!");
+                continue;
+            } else {
+                break;
+            }
+
+        }
 
         str_len=read(sock, message, sizeof(message)-1);
         if(str_len==-1) error_handling("read() error!");
