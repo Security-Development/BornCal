@@ -15,10 +15,10 @@ int port
 ---------------------------------
 BonCalClientAPI API = new BonCalClientAPI(ip, port);
 try{
-      System.out.println("[+] Recive Message : "+API.GetReciveMessage());
-      API.SocketClose();
-   }catch(Exception error) {
-      error.printStackTrace();
-   }
+   System.out.println("[+] Recive Message : "+API.GetReciveMessage()); // 서버에서 받은 메세지 
+   API.SocketClose(); // 소켓 종료
+}catch(Exception error) {
+   error.printStackTrace();
+}
 
 ```
