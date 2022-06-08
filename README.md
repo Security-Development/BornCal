@@ -16,7 +16,7 @@ int port
 BonCalClientAPI API = new BonCalClientAPI(ip, port);
 try{
       System.out.println("[+] Recive Message : "+API.GetReciveMessage());
-      client.close();
+      API.SocketClose();
    }catch(Exception error) {
       error.printStackTrace();
    }
