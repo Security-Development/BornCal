@@ -13,6 +13,12 @@ struct Packet{
     char msg[50];
 };
 
+struct claData {
+    double num1;
+    double num2;
+    unsigned int opNum;
+};
+
 #define MAX_MSG_SIZE 50
 
 void error_handling(char *msg){
@@ -27,6 +33,7 @@ int main(int argc, char  *argv[]){
     struct sockaddr_in s_addr;  // server ip addr
     struct sockaddr_in c_addr;  // clinet ip addr
     struct Packet packet;
+    struct claData cladata;
     socklen_t c_addr_size;
 
     char msg[MAX_MSG_SIZE];
@@ -54,26 +61,32 @@ int main(int argc, char  *argv[]){
         while(1){
             sleep(1);
             c_addr_size = sizeof(c_addr);
-            memset(&packet, 0, sizeof(packet));
-            msg_len = recvfrom(s_sock, &packet, sizeof(packet), 0, (struct sockaddr*)&c_addr, &c_addr_size);
-
-            if (msg_len == -1 && strcmp(inet_ntoa(c_addr.sin_addr), "0.0.0.0")){
+            memset(&cladata, 0, sizeof(cladata));
+            //msg_len = recvfrom(s_sock, &cladata, sizeof(cladata), 0, (struct sockaddr*)&c_addr, &c_addr_size);
+            packet_len = recvfrom(s_sock, &cladata, sizeof(cladata), 0, (struct sockaddr*)&c_addr, &c_addr_size);
+            if (packet_len == -1 && strcmp(inet_ntoa(c_addr.sin_addr), "0.0.0.0")){
                 error_handling("recvfrom() error");
                 continue;
             }
-
-            if(!strcmp(packet.msg,"!DISCON") || !strcmp(packet.msg,"!EXIT")){
+            /*
+            if(!strcmp(cladata.msg,"!DISCON") || !strcmp(cladata.msg,"!EXIT")){
                 break;
             }
-            printf("Message from %s:%d: %s(%d)\n", inet_ntoa(c_addr.sin_addr), ntohs(c_addr.sin_port), packet.msg,  packet.opcode);
+             */
+            printf("Message from %s:%d: %s(%d)\n", inet_ntoa(c_addr.sin_addr), ntohs(c_addr.sin_port), cladata.msg,  cladata.opcode);
         }
-        if(!strcmp(packet.msg,"!DISCON")){
+        printf("cladata.num1 : %lf",cladata.num1);
+        printf("cladata.num2 : %lf",cladata.num2);
+        printf("cladata.opNum : %lf",cladata.opNum);
+        /*
+        if(!strcmp(cladata.msg,"!DISCON")){
             printf("Client Disconnected: %s\n", inet_ntoa(c_addr.sin_addr));
         }
-        else if(!strcmp(packet.msg,"!EXIT")){
+        else if(!strcmp(cladata.msg,"!EXIT")){
             printf("Server Terminated by %s\n", inet_ntoa(c_addr.sin_addr));
             break;
         }
+        */
     }
     close(s_sock);
 
