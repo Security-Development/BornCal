@@ -1,30 +1,58 @@
-#include <stdio.h>
-#include <string.h>
-#include <windows.h>
-//#include <regex>
+#include <iostream>
+#pragma warning(disable: 4996)
 
-struct clacData
+using namespace std;
+
+struct _clacData
 {
-    unsigned int opNum; // + - * ¡À , 1 2 3 4
-    double num1;  // ¼ıÀÚ1 ÀÔ·Â
-    double num2; // ¼ıÀÚ2 ÀÔ·Â
-    
+    int opNum; // + - * Ã· , 1 2 3 4
+    double num1;  // ìˆ«ì1 ì…ë ¥
+    double num2; // ìˆ«ì2 ì…ë ¥
+
 };
 
-int main(){
+int clac() {
 
-//    regex reOP("/^[0-4]+$/");
-//    regex reNum("^[-]?\d*(\.?\d*)$");
-    
-    clacData Data = {0,0,0};
+    _clacData Data = {0,0,0};
 
-	printf("»ç¿ëÇÒ ¿¬»êÀÚ ¹øÈ£¸¦ ÀÔ·Â ÇØÁÖ¼¼¿ä.: ");
-    scanf("%d",&Data.opNum);
-    
-    printf("\n°è»êÇÒ Ã¹ ¹øÂ° °ªÀ» ÀÔ·Â ÇØÁÖ¼¼¿ä.: ");
-    scanf("%1f",&Data.num1);
-    
-    printf("\n°è»êÇÒ µÎ ¹øÂ° °ªÀ» ÀÔ·Â ÇØÁÖ¼¼¿ä.: ");
-    scanf("%1f",&Data.num2);
+    while (true) {
 
+        cout << "ì‚¬ìš©í•  ì—°ì‚°ì ë²ˆí˜¸ë¥¼ ì…ë ¥ í•´ì£¼ì„¸ìš”. : ";
+        cin >> Data.opNum;
+        if (cin.good()) {
+
+            cout << "ê³„ì‚°í•  ì²« ë²ˆì§¸ ê°’ì„ ì…ë ¥ í•´ì£¼ì„¸ìš”. : ";
+            cin >> Data.num1;
+            if (cin.good()) {
+
+                cout << "ê³„ì‚°í•  ë‘ ë²ˆì§¸ ê°’ì„ ì…ë ¥ í•´ì£¼ì„¸ìš”. : ";
+                cin >> Data.num2;
+                if (cin.good()) {
+
+                    // ì—¬ê¸°ì„œ ë°ì´í„° ë„˜ê¸°ë©´ ë©ë‹ˆë‹¤.
+                }
+                else
+                    cout << "ì˜ëª»ëœ ê°’ì„ ì…ë ¥í–ˆìŠµë‹ˆë‹¤!! \n";
+                    cin.clear();  cin.ignore(INT_MAX, '\n');
+                    continue;
+            }
+            else
+                cout << "ì˜ëª»ëœ ê°’ì„ ì…ë ¥í–ˆìŠµë‹ˆë‹¤!! \n";
+                cin.clear();  cin.ignore(INT_MAX, '\n');
+                continue;   
+        }
+        else
+            cout << "ì˜ëª»ëœ ê°’ì„ ì…ë ¥í–ˆìŠµë‹ˆë‹¤!! \n";
+            cin.clear();  cin.ignore(INT_MAX, '\n');
+            continue;
+        
+        break;
+    }
+
+    printf("%d %1f %1f", Data.opNum, Data.num1, Data.num2);
+}
+
+int main() {
+
+    clac();
 }
