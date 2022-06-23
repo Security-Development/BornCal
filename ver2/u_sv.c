@@ -1,25 +1,24 @@
 #include <stdio.h>
+#include <math.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
 
-#include <math.h>
-
 const unsigned int header_len = sizeof(short)*2;
 
-struct Packet{
+typedef struct Packet{
     short opcode;
     short data_len;
     char msg[50];
-};
+} Packet;
 
-struct claData {
+typedef struct claData {
     double num1;
     double num2;
     unsigned int opNum;
-};
+} claData;
 
 #define MAX_MSG_SIZE 50
 
@@ -29,38 +28,38 @@ void error_handling(char *msg){
     exit(1);
 }
 
-double cal(claData cladata){		// calculate in accordance with claData
-	int n_point = 1;
-	switch(cladata.opNum)
-	{
-		case 1:
-			return cladata.num1 + cladata.num2;
-			
-		case 2:
-			return cladata.num1 - cladata.num2;
-			
-		case 3:
-			while (1)
-			{
-				if (cladata.num1 % 1.0f == 0 && cladata.num2 % 1.0f == 0)
-					break;
-				cladata.num1 *= 10;
-				cladata.num2 *= 10;
-				n_point *= 100;
-			}
-			return cladata.num1 * cladata.num2 / n_point;
-			
-		case 4: 
-			while (1)
-			{
-				if (cladata.num1 % 1.0f == 0 && cladata.num2 % 1.0f == 0)
-					break;
-				cladata.num1 *= 10;
-				cladata.num2 *= 10;
-				n_point *= 100;
-			}
-			return cladata.num1 / cladata.num2 / n_point;
-	}
+double cal(claData cladata){            // calculate in accordance with claData
+        int n_point = 1;
+        switch(cladata.opNum)
+        {
+                case 1:
+                        return cladata.num1 + cladata.num2;
+
+                case 2:
+                        return cladata.num1 - cladata.num2;
+
+                case 3:
+                        while (1)
+                        {
+                                if ( fmod(cladata.num1, 1.0f) == 0 && fmod(cladata.num2, 1.0f) == 0)
+                                        break;
+                                cladata.num1 *= 10;
+                                cladata.num2 *= 10;
+                                n_point *= 100;
+                        }
+                        return cladata.num1 * cladata.num2 / n_point;
+
+                case 4: 
+                        while (1)
+                        {
+                                if ( fmod(cladata.num1, 1.0f) == 0 && fmod(cladata.num2, 1.0f) == 0)
+                                        break;
+                                cladata.num1 *= 10;
+                                cladata.num2 *= 10;
+                                n_point *= 100;
+                        }
+                        return cladata.num1 / cladata.num2 / n_point;
+        }
 }
 
 int main(int argc, char  *argv[]){
@@ -95,7 +94,7 @@ int main(int argc, char  *argv[]){
     if(bind(s_sock, (struct sockaddr*) &s_addr, sizeof(s_addr)) == -1) // bind port & ip to socket
         error_handling("bind() error");
 
-    while(1){	// server will not closes after client disconnect.
+    while(1){   // server will not closes after client disconnect.
         while(1){
             sleep(1);
             c_addr_size = sizeof(c_addr);
