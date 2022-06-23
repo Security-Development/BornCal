@@ -5,6 +5,8 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 
+#include <math.h>
+
 const unsigned int header_len = sizeof(short)*2;
 
 struct Packet{
@@ -27,6 +29,40 @@ void error_handling(char *msg){
     exit(1);
 }
 
+double cal(claData cladata){		// calculate in accordance with claData
+	int n_point = 1;
+	switch(cladata.opNum)
+	{
+		case 1:
+			return cladata.num1 + cladata.num2;
+			
+		case 2:
+			return cladata.num1 - cladata.num2;
+			
+		case 3:
+			while (1)
+			{
+				if (cladata.num1 % 1.0f == 0 && cladata.num2 % 1.0f == 0)
+					break;
+				cladata.num1 *= 10;
+				cladata.num2 *= 10;
+				n_point *= 100;
+			}
+			return cladata.num1 * cladata.num2 / n_point;
+			
+		case 4: 
+			while (1)
+			{
+				if (cladata.num1 % 1.0f == 0 && cladata.num2 % 1.0f == 0)
+					break;
+				cladata.num1 *= 10;
+				cladata.num2 *= 10;
+				n_point *= 100;
+			}
+			return cladata.num1 / cladata.num2 / n_point;
+	}
+}
+
 int main(int argc, char  *argv[]){
     int s_sock; // listening port
 
@@ -38,6 +74,8 @@ int main(int argc, char  *argv[]){
 
     char msg[MAX_MSG_SIZE];
     int msg_len;
+    int packet_len;
+    double answer;
 
 
     if(argc!=2){
@@ -72,12 +110,15 @@ int main(int argc, char  *argv[]){
             if(!strcmp(cladata.msg,"!DISCON") || !strcmp(cladata.msg,"!EXIT")){
                 break;
             }
-             */
             printf("Message from %s:%d: %s(%d)\n", inet_ntoa(c_addr.sin_addr), ntohs(c_addr.sin_port), cladata.msg,  cladata.opcode);
+             */
         }
         printf("cladata.num1 : %lf",cladata.num1);
         printf("cladata.num2 : %lf",cladata.num2);
         printf("cladata.opNum : %lf",cladata.opNum);
+        
+        answer = cal(cladata);
+        
         /*
         if(!strcmp(cladata.msg,"!DISCON")){
             printf("Client Disconnected: %s\n", inet_ntoa(c_addr.sin_addr));
