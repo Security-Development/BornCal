@@ -1,5 +1,8 @@
 #include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
 
@@ -46,7 +49,7 @@ int main() {
         packet.data_len = sizeof(buff);
         strcpy(packet.msg, buff);
         */
-        cladata.opNum = 1;
+        cladata.opNum = 4;
         cladata.num1 = 50;
         cladata.num2 = 10;
 
@@ -72,5 +75,23 @@ int main() {
 
 
 
+        printf("log1");
+        struct sockaddr_in s_addr;  // server ip addr
+        struct sockaddr_in c_addr;  // clinet ip addr
+        int s_sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
+        socklen_t c_addr_size;
+        memset(&s_addr, 0, sizeof(s_addr)); // socketaddr_in struct initialize
+        s_addr.sin_family = AF_INET;
+        s_addr.sin_addr.s_addr = htonl(INADDR_ANY); // for server, localhost
+        s_addr.sin_port=htons(7905); // listen port#
+        if(bind(s_sock, (struct sockaddr*) &s_addr, sizeof(s_addr)) == -1)
+            error_handling("bind() error");
+        c_addr_size = sizeof(c_addr);
+        memset(&cladata, 0, sizeof(cladata));
+        int packet_len;
+        printf("log2\n");
+        packet_len = recvfrom(s_sock, &cladata, sizeof(cladata), 0, (struct sockaddr*)&c_addr, &c_addr_size);
+        printf("packet_len : %d\n",packet_len);
+        printf("result : %lf\n",cladata.num1);
         return 0;
 }

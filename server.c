@@ -141,23 +141,22 @@ int main(int argc, char  *argv[]){
         answer = cal(cladata);
         printf("answer : %lf\n",answer);
         printf("log10\n");
-        while(1) {
-            printf("log9\n");
-            sleep(1);
-            struct sockaddr_in address;
-            memset(&cladata, 0, sizeof(cladata));
-            address.sin_family = AF_INET;
-            address.sin_addr.s_addr = inet_addr("127.0.0.1");
-            address.sin_port = htons(7905);
-            cladata.opNum = 5;
-            cladata.num1 = answer;
-            cladata.num2 = answer;
-            int client = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP), join, size, result = 0;
-            if( (join = connect(client, (struct sockaddr *) &address, sizeof(address))) == -1 )
-                return 0;
-            sendto(client, &cladata, sizeof(cladata), 0, (struct sockaddr *)&address, sizeof(address));
 
-        }
+        printf("log9\n");
+        sleep(1);
+        struct sockaddr_in address;
+        memset(&cladata, 0, sizeof(cladata));
+        address.sin_family = AF_INET;
+        address.sin_addr.s_addr = inet_addr("127.0.0.1");
+        address.sin_port = htons(7905);
+        cladata.opNum = 5;
+        cladata.num1 = answer;
+        cladata.num2 = answer;
+        int client = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP), join, size, result = 0;
+        if( (join = connect(client, (struct sockaddr *) &address, sizeof(address))) == -1 )
+            return 0;
+        sendto(client, &cladata, sizeof(cladata), 0, (struct sockaddr *)&address, sizeof(address));
+
         /*
         if(!strcmp(cladata.msg,"!DISCON")){
             printf("Client Disconnected: %s\n", inet_ntoa(c_addr.sin_addr));
