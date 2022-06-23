@@ -68,10 +68,6 @@ double cal(claData cladata){            // calculate in accordance with claData
 int main(int argc, char  *argv[]){
     while(1) {
 
-
-        printf("main entered!\n");
-        printf("log\n");
-        printf("log\n");
         int s_sock; // listening port
 
         struct sockaddr_in s_addr;  // server ip addr
@@ -79,27 +75,23 @@ int main(int argc, char  *argv[]){
         struct Packet packet;
         struct claData cladata;
         socklen_t c_addr_size;
-        printf("log\n");
 
         char msg[MAX_MSG_SIZE];
         int msg_len;
         int packet_len;
         double answer;
 
-        printf("log\n");
 
         if (argc != 2) {
             printf("Usage : %s <port>\n", argv[0]);
             exit(1);
         }
 
-        printf("log\n");
         s_sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
 
         if (s_sock == -1)
             error_handling("socket() error");
 
-        printf("log\n");
         memset(&s_addr, 0, sizeof(s_addr)); // socketaddr_in struct initialize
         s_addr.sin_family = AF_INET;
         s_addr.sin_addr.s_addr = htonl(INADDR_ANY); // for server, localhost
@@ -107,54 +99,26 @@ int main(int argc, char  *argv[]){
 
         if (bind(s_sock, (struct sockaddr *) &s_addr, sizeof(s_addr)) == -1) // bind port & ip to socket
             error_handling("bind() error");
-        printf("log1\n");
         while (1) {   // server will not closes after client disconnect.
-
-            printf("log2\n");
             while (1) {
-                printf("log3\n");
-                sleep(1);
-                printf("log4\n");
                 c_addr_size = sizeof(c_addr);
-                printf("log5\n");
                 memset(&cladata, 0, sizeof(cladata));
-                printf("log6\n");
                 //msg_len = recvfrom(s_sock, &cladata, sizeof(cladata), 0, (struct sockaddr*)&c_addr, &c_addr_size);
-                printf("log7\n");
                 packet_len = recvfrom(s_sock, &cladata, sizeof(cladata), 0, (struct sockaddr *) &c_addr, &c_addr_size);
-                printf("log8\n");
-                printf("packet_len : %d\n", packet_len);
                 if (packet_len == -1 && strcmp(inet_ntoa(c_addr.sin_addr), "0.0.0.0")) {
                     error_handling("recvfrom() error");
                     continue;
                 } else {
                     break;
                 }
-                /*
-                if(!strcmp(cladata.msg,"!DISCON") || !strcmp(cladata.msg,"!EXIT")){
-                    break;
-                }
-                printf("Message from %s:%d: %s(%d)\n", inet_ntoa(c_addr.sin_addr), ntohs(c_addr.sin_port), cladata.msg,  cladata.opcode);
-                 */
             }
-            printf("cladata.num1 : %lf\n", cladata.num1);
-            printf("cladata.num2 : %lf\n", cladata.num2);
-            printf("cladata.opNum : %lf\n", cladata.opNum);
-
-
             if (cladata.opNum == 6.0) {
                 close(s_sock);
             } else if (cladata.opNum == 7.0) {
                 return 0;
                 break;
             }
-
-
             answer = cal(cladata);
-            printf("answer : %lf\n", answer);
-            printf("log10\n");
-
-            printf("log9\n");
             sleep(1);
             struct sockaddr_in address;
             memset(&cladata, 0, sizeof(cladata));

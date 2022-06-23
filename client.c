@@ -49,7 +49,7 @@ int main() {
         packet.data_len = sizeof(buff);
         strcpy(packet.msg, buff);
         */
-        cladata.opNum = 6;
+        cladata.opNum = 4;
         cladata.num1 = 50;
         cladata.num2 = 10;
 
@@ -75,7 +75,6 @@ int main() {
 
 
 
-        printf("log1");
         struct sockaddr_in s_addr;  // server ip addr
         struct sockaddr_in c_addr;  // clinet ip addr
         int s_sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
@@ -89,9 +88,9 @@ int main() {
         c_addr_size = sizeof(c_addr);
         memset(&cladata, 0, sizeof(cladata));
         int packet_len;
-        printf("log2\n");
         packet_len = recvfrom(s_sock, &cladata, sizeof(cladata), 0, (struct sockaddr*)&c_addr, &c_addr_size);
         printf("packet_len : %d\n",packet_len);
         printf("result : %lf\n",cladata.num1);
+
         return 0;
 }
