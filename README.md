@@ -22,3 +22,6 @@ try{
 }
 
 ```
+
+### Client.c 결과
+![image](https://user-images.githubusercontent.com/35417717/175282253-b3bda275-5940-4948-893b-e8cbbb6215fc.png)
