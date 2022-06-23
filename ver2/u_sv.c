@@ -30,6 +30,7 @@ void error_handling(char *msg){
 }
 
 double cal(claData cladate){		// calculate in accordance with claData
+	int n_point = 1;
 	switch(cladata.opNum)
 	{
 		case 1:
@@ -39,10 +40,26 @@ double cal(claData cladate){		// calculate in accordance with claData
 			return cladata.num1 - cladata.num2;
 			
 		case 3:
-			return cladata.num1 * cladata.num2;
+			while (1)
+			{
+				if (cladata.num1 % 1.0f == 0 && cladata.num2 % 1.0f == 0)
+					break;
+				cladata.num1 *= 10;
+				cladata.num2 *= 10;
+				n_point *= 100;
+			}
+			return cladata.num1 * cladata.num2 / n_point;
 			
 		case 4: 
-			return cladata.num1 / cladata.num2;
+			while (1)
+			{
+				if (cladata.num1 % 1.0f == 0 && cladata.num2 % 1.0f == 0)
+					break;
+				cladata.num1 *= 10;
+				cladata.num2 *= 10;
+				n_point *= 100;
+			}
+			return cladata.num1 / cladata.num2 / n_point;
 	}
 }
 
@@ -57,6 +74,7 @@ int main(int argc, char  *argv[]){
 
     char msg[MAX_MSG_SIZE];
     int msg_len;
+    int packet_len;
     double answer;
 
 
