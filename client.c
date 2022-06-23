@@ -49,7 +49,7 @@ int main() {
         packet.data_len = sizeof(buff);
         strcpy(packet.msg, buff);
         */
-        cladata.opNum = 4;
+        cladata.opNum = 6;
         cladata.num1 = 50;
         cladata.num2 = 10;
 
