@@ -29,7 +29,7 @@ void error_handling(char *msg){
     exit(1);
 }
 
-double cal(claData cladate){		// calculate in accordance with claData
+double cal(claData cladata){		// calculate in accordance with claData
 	int n_point = 1;
 	switch(cladata.opNum)
 	{
