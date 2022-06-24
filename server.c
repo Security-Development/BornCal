@@ -113,13 +113,10 @@ int main(int argc, char  *argv[]){
                 }
             }
             if (cladata.opNum == 6.0) {
-                close(s_sock);
-            } else if (cladata.opNum == 7.0) {
                 return 0;
-                break;
             }
             answer = cal(cladata);
-            sleep(1);
+            //sleep(1);
             struct sockaddr_in address;
             memset(&cladata, 0, sizeof(cladata));
             address.sin_family = AF_INET;
