@@ -53,7 +53,7 @@ double getData(){
 	if( (join = connect(client, (struct sockaddr *) &address, sizeof(address))) == -1 )
 			return 0;
 
-	printf("[*] Connection Server !!\n");
+	printf("\n[*] Connection Server !!\n");
 	sendto(client, &Data, sizeof(Data), 0, (struct sockaddr *)&address, sizeof(address));
 	printf("[+] Send To Data Data : 0x%x\n", Data);
 	printf("[+] opNum : %d\n", Data.opNum);
@@ -78,6 +78,7 @@ double getData(){
 		packet_len = recvfrom(s_sock, &Data, sizeof(Data), 0, (struct sockaddr*)&c_addr, &c_addr_size);
 		printf("packet_len : %d\n",packet_len);
 		printf("result : %lf\n",Data.result);  // 결과 값 출력
+		printf("----------------------------------");
 
 		close(s_sock); // 소켓 해제
 	}
@@ -88,16 +89,23 @@ double getData(){
 }
 
 void clear() {
-	sleep(0.5);
+	sleep(1);
 	system("clear");
 }
 
 int clac() {
 
 	while (1) {
-		clear();
 
-		cout << "사용할 연산자 번호를 입력 해주세요. + - * ÷ , 1 2 3 4 : ";
+		cout << R"(
+사용할 연산자 번호를 입력 해주세요.
+
++ : 1
+- : 2
+* : 3 
+÷ : 4  
+		
+>>  )";
 		cin >> Data.opNum;
 
 		if ( !(cin.good() && (1 <= Data.opNum && Data.opNum <= 4)) ) {
@@ -136,9 +144,16 @@ int main() {
 	set<string> commandSet{ "!calc","!cls" ,"!exit","!srvoff" };
 
 	while (1) {
-		clear();
 
-		cout << "명령어를 입력해주세요. !calc !cls !exit !srvoff : ";
+		cout << R"(
+명령어를 입력해주세요.
+
+!calc : 계산기 실행
+!cls : 출력 초기화
+!exit : 프로그램 종료
+!srvoff : 서버 종료
+		
+>> )";
 		cin >> str;
 
 		if (cin.good() && str == "!calc")
@@ -150,7 +165,8 @@ int main() {
 			clear();
 		}
 		else if (cin.good() && str == "!exit")
-		{
+		{	
+			printf("클라이언트가 종료되었습니다. \n");
 			exit(0);
 		}
 		else if (cin.good() && str == "!srvoff")
