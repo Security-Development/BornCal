@@ -72,7 +72,6 @@ int main(int argc, char  *argv[]){
 
         struct sockaddr_in s_addr;  // server ip addr
         struct sockaddr_in c_addr;  // clinet ip addr
-        struct Packet packet;
         struct claData cladata;
         socklen_t c_addr_size;
 
