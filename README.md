@@ -1,9 +1,9 @@
 # 🧮 BornCal    
 > 응애
 ## Team member
-* H310김본수: Client  
-* H310이승용: Client  
-* H310황성윤: Readme  
+* H3107김본수: Client  
+* H3112이승용: Client  
+* H3119황성윤: Readme  
 * H3206박현경: Readme  
 * H3209양승철: Server   
 * H3219홍제만: Server  
@@ -17,7 +17,7 @@
 **Program setting**  
 * Server  
 ```
-g++ -o server server.cpp -fno-stack-protector -no-pie -lm
+gcc -o server server.cpp -fno-stack-protector -no-pie -lm
 ```  
 * Client  
 ```  
