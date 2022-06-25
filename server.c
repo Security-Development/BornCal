@@ -18,9 +18,10 @@ typedef struct Packet{
 } Packet;
 
 typedef struct claData {
+    int opNum;
     double num1;
     double num2;
-    unsigned int opNum;
+    double result; // 결과값 저장
 } claData;
 
 #define MAX_MSG_SIZE 50
