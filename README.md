@@ -24,6 +24,8 @@
 ## 프로그램 종료
 
 ## 프로그램 구조 분석
-* 통신규약
+* 통신규약  
+Client→Server  
+  
 * Server
 * Client
