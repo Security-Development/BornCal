@@ -1,11 +1,11 @@
 # BornCal
 ## Team member
-* H310김본수: client  
-* H310이승용: client  
-* H310황성윤: readme  
-* H3206박현경: readme  
-* H3209양승철: server  
-* H3219홍제만: server  
+* H310김본수: Client  
+* H310이승용: Client  
+* H310황성윤: Readme  
+* H3206박현경: Readme  
+* H3209양승철: Server   
+* H3219홍제만: Server  
 
 ## Introduction
 
