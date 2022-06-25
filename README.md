@@ -11,10 +11,18 @@
 
 **Language/Development enviroments**
 * C
-* Ubuntu 18.04
-
-**Program setting**
-
+* Ubuntu 18.04  
+  
+**Program setting**  
+./server 7904 → ./client  
+* Server  
+```
+g++ -o server server.cpp -fno-stack-protector -no-pie -lm
+```  
+* Client  
+```  
+g++ -o client client.cpp -fno-stack-protector -no-pie -lm
+```  
 ## 프로그램 동작
 
 ## 계산 명령 수행
