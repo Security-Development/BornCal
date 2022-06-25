@@ -9,15 +9,15 @@
 
 ## Introduction
 
-## Language/Development enviroments
+**Language/Development enviroments**
 * C
 * Ubuntu 18.04
 
-## 프로그램 셋팅
+**Program setting**
 
 ## 프로그램 동작
 
-## 계산 수행
+## 계산 명령 수행
 
 ## 오류 수정
 
