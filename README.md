@@ -22,7 +22,7 @@ g++ -o server server.cpp -fno-stack-protector -no-pie -lm
 ```  
 g++ -o client client.cpp -fno-stack-protector -no-pie -lm
 ```  
-## 프로그램 동작  
+## 프로그램 실행    
 * ./server 7904 → ./client  
 ## 계산 명령 수행
 
