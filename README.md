@@ -1,5 +1,6 @@
-# BornCal
-## Team member
+# BornCal  
+> 응애
+## Team member
 * H310김본수: Client  
 * H310이승용: Client  
 * H310황성윤: Readme  
