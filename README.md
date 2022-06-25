@@ -10,7 +10,7 @@
 ## Introduction
 
 **Language/Development enviroments**
-* C
+* C/C++
 * Ubuntu 18.04  
   
 **Program setting**  
