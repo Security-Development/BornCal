@@ -26,7 +26,14 @@ g++ -o client client.cpp -fno-stack-protector -no-pie -lm
 ## 프로그램 실행    
 * ./server 7904 → ./client  
 ## 계산 명령 수행
-
+* **!calc**   
+계산기에 넣을 연산자와, 데이터를 입력받을 수 있는 calc() 함수를 동작시킬 수 있다.    
+* **!cls**  
+시스템의 clear 커맨드를 동작시켜 커멘드창의 출력 결과를 모두 지운다.  
+* **!exit**  
+프로그램을 종료시키는 exit() 함수를 실행시킨다.  
+* **!srvoff**  
+server 측에 opcode 6를 보내 서버를 종료시킨다.  
 ## 오류 수정
 
 ## 프로그램 종료
