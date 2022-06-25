@@ -14,7 +14,6 @@
 * Ubuntu 18.04  
   
 **Program setting**  
-./server 7904 → ./client  
 * Server  
 ```
 g++ -o server server.cpp -fno-stack-protector -no-pie -lm
@@ -23,8 +22,8 @@ g++ -o server server.cpp -fno-stack-protector -no-pie -lm
 ```  
 g++ -o client client.cpp -fno-stack-protector -no-pie -lm
 ```  
-## 프로그램 동작
-
+## 프로그램 동작  
+* ./server 7904 → ./client  
 ## 계산 명령 수행
 
 ## 오류 수정
