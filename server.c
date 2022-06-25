@@ -125,6 +125,7 @@ int main(int argc, char  *argv[]){
             cladata.opNum = 5;
             cladata.num1 = answer;
             cladata.num2 = answer;
+            cladata.result = answer; // 결과값에 연산 결과 저장
             int client = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP), join, size, result = 0;
             if ((join = connect(client, (struct sockaddr *) &address, sizeof(address))) == -1)
                 return 0;
