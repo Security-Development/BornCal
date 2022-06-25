@@ -1,4 +1,4 @@
-# BornCal  
+# 🧮BornCal  
 > 응애
 ## Team member
 * H310김본수: Client  
