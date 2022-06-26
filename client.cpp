@@ -121,7 +121,7 @@ double getData(){
 	return 0;
 }
 void clear() {
-	sleep(0.5);
+	sleep(1);
 	system("clear");
 }
 
@@ -150,13 +150,13 @@ int clac() {
 			continue;
 		}
 		if( typecheck >= INT_MAX) {
-			printf("오버플로우 발생가 발생했습니다!! \n");
+			printf("오버플로우가 발생했습니다!! \n");
 			cin.clear();  cin.ignore(1024, '\n');
 			continue;
 		} 
 			
 		if(typecheck < INT_MIN) {
-			printf("언더플로우 발생가 발생했습니다!! \n가 발생했습니다!! \n");
+			printf("언더플로우가 발생했습니다!! \n");
 			cin.clear();  cin.ignore(1024, '\n');
 			continue; 
 		}
@@ -187,13 +187,13 @@ int clac() {
 		}
 		
 		if( typecheck >= INT_MAX) {
-			printf("오버플로우 발생가 발생했습니다!! \n");
+			printf("오버플로우가 발생했습니다!! \n");
 			cin.clear();  cin.ignore(1024, '\n');
 			continue;
 		} 
 			
 		if(typecheck < INT_MIN) {
-			printf("언더플로우 발생가 발생했습니다!! \n");
+			printf("언더플로우가 발생했습니다!! \n");
 			cin.clear();  cin.ignore(1024, '\n');
 			continue; 
 		}
