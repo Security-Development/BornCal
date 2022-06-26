@@ -187,10 +187,9 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
                 	    break;
                 	num1 *= 10;
                 	num2 *= 10;
-                	n_point *= 100;
             	}
             	
-            	cla_return.dresult = num1 / num2 / n_point;
+            	cla_return.dresult = num1 / num2;
             	return cla_return
 			}
     }
