@@ -37,16 +37,16 @@ struct _clacData {
   int flagnum1; // int, double, none 1 2 3
   int flagnum2; // int, double, none 1 2 3
 
-  int inum1; // i숫자1
-  int inum2; // i숫자2
+  int inum1; // int 숫자1
+  int inum2; // int 숫자2
 
-  double dnum1; // d숫자1
-  double dnum2; // d숫자2
+  double dnum1; // double 숫자1
+  double dnum2; // double 숫자2
 
   int flagresult; // int, double, none 1 2 3
 
-  int iresult; // i결과 값
-  double dresult; // d결과 값
+  int iresult; // int 결과 값
+  double dresult; // double 결과 값
 };
 
 struct _clacData cladata = {
@@ -60,7 +60,7 @@ struct _clacData cladata = {
   3,
   0,
   0
-};
+}; // flag none 지정, 나머지는 0으로 초기화
 
 void error_handling(char * msg) {
   fputs(msg, stderr);
@@ -128,9 +128,9 @@ double getData() {
 
     if (cladata.opNum != 100) {
       if (cladata.flagresult == 1) { // int
-        printf("result : %d\n", cladata.iresult); // 결과 값 출력
+        printf("result : %d\n", cladata.iresult); // int 결과 값 출력
       } else if (cladata.flagresult == 2) { // double
-        printf("result : %1f\n", cladata.dresult); // 결과 값 출력
+        printf("result : %1f\n", cladata.dresult); // int 결과 값 출력
       }
     } else if (cladata.opNum == 100) {
       printf("연산 과정에서 오버플로우나 언더플로우가 발생했습니다!! \n");
@@ -163,7 +163,7 @@ int clac() {
       continue;
     }
 
-    double typecheck; // 정수 , 실수 판별
+    double typecheck; // 정수, 실수 판별
 
     cout << "계산할 첫 번째 값을 입력 해주세요. : ";
     cin >> typecheck;
@@ -188,11 +188,11 @@ int clac() {
       continue;
     }
 
-    if (typecheck - (int) typecheck == 0) {
+    if (typecheck - (int) typecheck == 0) { // 정수
 
       cladata.flagnum1 = 1;
       cladata.inum1 = (int) typecheck;
-    } else if (typecheck - (int) typecheck != 0) {
+    } else if (typecheck - (int) typecheck != 0) { // 실수
       cladata.flagnum1 = 2;
       cladata.dnum1 = typecheck;
     }
@@ -226,10 +226,10 @@ int clac() {
       continue;
     }
 
-    if (typecheck - (int) typecheck == 0) {
+    if (typecheck - (int) typecheck == 0) { // 정수
       cladata.flagnum2 = 1;
       cladata.inum2 = (int) typecheck;
-    } else if (typecheck - (int) typecheck != 0) {
+    } else if (typecheck - (int) typecheck != 0) { // 실수
       cladata.flagnum2 = 2;
       cladata.dnum2 = typecheck;
     }
@@ -279,7 +279,7 @@ int main() {
       off_addr.sin_port = htons(portnum);
       off_addr.sin_family = AF_INET;
       off_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-      cladata.opNum = 6;
+      cladata.opNum = 6; // opNum 6 지정
 
       if ((join = connect(srvoff, (struct sockaddr * ) & off_addr, sizeof(off_addr))) == -1)
         return 0;

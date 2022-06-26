@@ -29,16 +29,16 @@ typedef struct _clacData {
   int flagnum1; // int, double, none 1 2 3
   int flagnum2; // int, double, none 1 2 3
 
-  int inum1; // i숫자1
-  int inum2; // i숫자2
+  int inum1; // int 숫자1
+  int inum2; // int 숫자2
 
-  double dnum1; // d숫자1
-  double dnum2; // d숫자2
+  double dnum1; // double 숫자1
+  double dnum2; // double 숫자2
 
   int flagresult; // int, double, none 1 2 3 
 
-  int iresult; // i결과 값
-  double dresult; // d결과 값
+  int iresult; // int 결과 값
+  double dresult; // double 결과 값
 }
 _clacData;
 
@@ -264,9 +264,7 @@ int main(int argc, char * argv[]) {
     while (1) { // server will not closes after client disconnect.
       while (1) {
         c_addr_size = sizeof(c_addr);
-        //memset(&cladata, 0, sizeof(cladata));
         memset( & _clacdata, 0, sizeof(_clacdata));
-        //msg_len = recvfrom(s_sock, &cladata, sizeof(cladata), 0, (struct sockaddr*)&c_addr, &c_addr_size);
         packet_len = recvfrom(s_sock, & _clacdata, sizeof(_clacdata), 0, (struct sockaddr * ) & c_addr, & c_addr_size);
         if (packet_len == -1 && strcmp(inet_ntoa(c_addr.sin_addr), "0.0.0.0")) {
           error_handling("recvfrom() error");
