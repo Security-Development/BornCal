@@ -1,12 +1,12 @@
 # 🧮 BornCal    
 > 사칙연산(+, -, ×, ÷)을 포함하는 연산식을 입력받아 처리하는 UDP 프로그램
 ## Team member
-* H3107김본수: Client  
-* H3112이승용: Client  
-* H3119황성윤: Readme  
-* H3206박현경: Readme  
-* H3209양승철: Server   
-* H3219홍제만: Server  
+* H3107김본수(kbs): Client  
+* H3112이승용(lsy): Client  
+* H3119황성윤(): Readme  
+* H3206박현경(phk): Readme  
+* H3209양승철(ysc): Server   
+* H3219홍제만(hjm): Server  
 
 ## Introduction
 
