@@ -101,13 +101,19 @@ double getData(){
 		memset(&cladata, 0, sizeof(cladata));
 		int packet_len;
 		packet_len = recvfrom(s_sock, &cladata, sizeof(cladata), 0, (struct sockaddr*)&c_addr, &c_addr_size);
-		printf("packet_len : %d\n",packet_len);
+		
+		if( packet_len >= 50 ){ //버퍼 오버플로우 방지 데이터 유효성 검사
+			printf("정해진 메세지 크기를 넘었습니다.");
+		}else {
+			
+			printf("packet_len : %d\n",packet_len);
 
-		if (cladata.flagresult == 1){ // int
-			printf("result : %d\n",cladata.iresult);  // 결과 값 출력
-		}
-		else if (cladata.flagresult == 2){
-			printf("[+] num2 : %1f\n", cladata.dresult);
+			if (cladata.flagresult == 1){ // int
+				printf("result : %d\n",cladata.iresult);  // 결과 값 출력
+			}
+			else if (cladata.flagresult == 2){
+				printf("[+] num2 : %1f\n", cladata.dresult);
+			}
 		}
 
 		close(s_sock); // 소켓 해제
