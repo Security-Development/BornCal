@@ -21,8 +21,8 @@ struct _clacData
 {
 	int opNum; // + - * ÷ result srvoff, 1 2 3 4 5 6
 
-	int flagnum1;  // int, double, none 0 1 2
-	int flagnum2; // int, double, none 0 1 2
+	int flagnum1;  // int, double, none 1 2 3
+	int flagnum2; // int, double, none 1 2 3
 
 	int inum1; // i숫자2
 	int inum2; // i숫자2
@@ -30,7 +30,7 @@ struct _clacData
 	double dnum1;  // d숫자1 입력
 	double dnum2; // d숫자2 입력	
 
-	int flagresult;  // int, double, none 0 1 2
+	int flagresult;  // int, double, none 1 2 3
 
 	int iresult; // i결과 값 저장
 	double dresult; // d결과 값 저장
@@ -69,19 +69,19 @@ double getData(){
 	printf("[+] Send To Data Data : 0x%x\n", cladata);
 	printf("[+] opNum : %d\n", cladata.opNum);
 
-	if (cladata.flagnum1 == 0) // int
+	if (cladata.flagnum1 == 1) // int
 	{
 		printf("[+] num1 : %d\n", cladata.inum1);
 	}
-	else if (cladata.flagnum1 == 1){ //double
+	else if (cladata.flagnum1 == 2){ //double
 		printf("[+] num1 : %1f\n", cladata.dnum1);
 	}
 
-	if (cladata.flagnum2 == 0) // int
+	if (cladata.flagnum2 == 1) // int
 	{
 		printf("[+] num2 : %d\n", cladata.inum2);
 	}
-	else if (cladata.flagnum2 == 1){
+	else if (cladata.flagnum2 == 2){
 		printf("[+] num2 : %1f\n", cladata.dnum2);
 	}
 
@@ -103,10 +103,10 @@ double getData(){
 		packet_len = recvfrom(s_sock, &cladata, sizeof(cladata), 0, (struct sockaddr*)&c_addr, &c_addr_size);
 		printf("packet_len : %d\n",packet_len);
 
-		if (cladata.flagresult == 0){ // int
+		if (cladata.flagresult == 1){ // int
 			printf("result : %d\n",cladata.iresult);  // 결과 값 출력
 		}
-		else if (cladata.flagresult == 1){
+		else if (cladata.flagresult == 2){
 			printf("[+] num2 : %1f\n", cladata.dresult);
 		}
 
@@ -149,11 +149,11 @@ int clac() {
 		}
 
 		if (typecheck - (int)typecheck == 0){	
-			cladata.flagnum1 = 0;
+			cladata.flagnum1 = 1;
 			cladata.inum1 = (int)typecheck;
 		}
 		else if (typecheck - (int)typecheck != 0){
-			cladata.flagnum1 = 1;
+			cladata.flagnum1 = 2;
 			cladata.dnum1 = typecheck;
 		}
 
@@ -172,11 +172,11 @@ int clac() {
 		}
 
 		if (typecheck - (int)typecheck == 0){
-			cladata.flagnum2 = 0;
+			cladata.flagnum2 = 1;
 			cladata.inum2 = (int)typecheck;
 		}
 		else if (typecheck - (int)typecheck != 0){
-			cladata.flagnum2 = 1;
+			cladata.flagnum2 = 2;
 			cladata.dnum2 = typecheck;
 		}
 		
