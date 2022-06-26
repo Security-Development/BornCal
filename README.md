@@ -26,18 +26,22 @@ g++ -o client client.cpp -fno-stack-protector -no-pie -lm
 ## 프로그램 실행    
 * ./server 7904 → ./client  
 ## 계산 명령 수행
-* **!calc**   
-계산기에 넣을 연산자와, 데이터를 입력받을 수 있는 calc() 함수를 동작시킬 수 있다.    
-* **!cls**  
-시스템의 clear 커맨드를 동작시켜 커멘드창의 출력 결과를 모두 지운다.  
-* **!exit**  
-프로그램을 종료시키는 exit() 함수를 실행시킨다.  
-* **!srvoff**  
-server 측에 opcode 6를 보내 서버를 종료시킨다.  
-
-  ![정수 정수 덧셈](https://user-images.githubusercontent.com/74813313/175808469-ba05c4f9-c540-411e-bbde-b7715ae75641.png)    
+* 명령어   
+  **!calc**   
+  계산기에 넣을 연산자와, 데이터를 입력받을 수 있는 calc() 함수를 동작시킬 수 있다.    
+  **!cls**  
+  시스템의 clear 커맨드를 동작시켜 커멘드창의 출력 결과를 모두 지운다.  
+  **!exit**  
+  프로그램을 종료시키는 exit() 함수를 실행시킨다.  
+  **!srvoff**  
+  server 측에 opcode 6를 보내 서버를 종료시킨다.  
+* **case 1**   
+  ![정수 정수 덧셈](https://user-images.githubusercontent.com/74813313/175808469-ba05c4f9-c540-411e-bbde-b7715ae75641.png)   
+* **case 2**   
   ![정수 실수 뺄셈](https://user-images.githubusercontent.com/74813313/175808514-fa1433f6-9174-4484-bde6-f86c735f5220.png)     
+* **case 3**   
   ![실수 정수 곱셈](https://user-images.githubusercontent.com/74813313/175808558-2a84b2ab-9d49-4fc2-a109-164789ee15ad.png)   
+* **case 4** 
   ![실수 실수 나눗셈](https://user-images.githubusercontent.com/74813313/175808571-28a50c1e-0f3f-4753-9d37-094b2ae53dcd.png)  
  
 ## 오류 수정
