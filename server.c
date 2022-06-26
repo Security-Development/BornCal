@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <climits>
 
 const unsigned int header_len = sizeof(short)*2;
 
@@ -56,14 +57,14 @@ int SafeAdd(int nLeftValue, int nRightValue)
 {
     if (nRightValue > 0)
     {
-        if (nLeftValue > (2174483647 - nRightValue))
+        if (nLeftValue > (INT_MAX - nRightValue))
             return 0;
         else
             return 1;
     }
     else if (nRightValue < 0)
     {
-        if (nLeftValue < (-2174483648 - nRightValue))
+        if (nLeftValue < (INT_MIN - nRightValue))
             return 0;
         else
             return 1;
@@ -74,14 +75,14 @@ int SafeSubtract(int nLeftValue, int nRightValue)
 {
     if (nRightValue > 0)
     {
-        if (nLeftValue < 2174483647 + nRightValue)
+        if (nLeftValue < INT_MAX + nRightValue)
             return 0;
         else
             return 1;
     }
     else if (nRightValue < 0)
     {
-        if (nLeftValue > -2174483648 + nRightValue)
+        if (nLeftValue > INT_MIN + nRightValue)
             return 0;
         else
             return 1;
@@ -100,14 +101,14 @@ int SafeMultifly(int nLeftValue, int nRightValue)
         if ((nLeftValue > 0 && nRightValue > 0) ||
             (nLeftValue < 0 && nRightValue < 0))
         {
-            if (abs(nRightValue) > (2174483647 / abs(nLeftValue)))
+            if (abs(nRightValue) > (INT_MAX / abs(nLeftValue)))
                 return 0;
             else
                 return 1;
         }
         else
         {
-            if (-abs(nRightValue) < (-2174483648 / abs(nLeftValue)))
+            if (-abs(nRightValue) < (INT_MIN / abs(nLeftValue)))
                 return 0;
             else
                 return 1;
@@ -196,7 +197,7 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
 				cla_return.flagresult = 1;
 				cla_return.iresult = cladata.inum1 * cladata.inum2;
 				
-				if (SafeSafeMultifly(cladata.inum1, cladata.inum2) == 0)
+				if (SafeMultifly(cladata.inum1, cladata.inum2) == 0)
 					cla_return.opNum = 100;
 				
 				return cla_return;
