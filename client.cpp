@@ -20,12 +20,23 @@ typedef struct Packet{
 struct _clacData
 {
 	int opNum; // + - * ÷ result srvoff, 1 2 3 4 5 6
-	double num1;  // 숫자1 입력
-	double num2; // 숫자2 입력
-	double result; // 결과 값 저장
+
+	int flagnum1;  // int, double, none 0 1 2
+	int flagnum2; // int, double, none 0 1 2
+
+	int inum1; // i숫자2
+	int inum2; // i숫자2
+
+	double dnum1;  // d숫자1 입력
+	double dnum2; // d숫자2 입력	
+
+	int flagresult;  // int, double, none 0 1 2
+
+	int iresult; // i결과 값 저장
+	double dresult; // d결과 값 저장
 };
 
-struct _clacData Data;
+struct _clacData cladata = {0,2,2,0,0,0,0,2,0,0};
 
 void error_handling(char *msg){
     fputs(msg, stderr);
@@ -53,14 +64,28 @@ double getData(){
 	if( (join = connect(client, (struct sockaddr *) &address, sizeof(address))) == -1 )
 			return 0;
 
-	printf("\n[*] Connection Server !!\n");
-	sendto(client, &Data, sizeof(Data), 0, (struct sockaddr *)&address, sizeof(address));
-	printf("[+] Send To Data Data : 0x%x\n", Data);
-	printf("[+] opNum : %d\n", Data.opNum);
-	printf("[+] num1 : %lf\n", Data.num1);
-	printf("[+] num2 : %lf\n", Data.num2);
+	printf("[*] Connection Server !!\n");
+	sendto(client, &cladata, sizeof(cladata), 0, (struct sockaddr *)&address, sizeof(address));
+	printf("[+] Send To Data Data : 0x%x\n", cladata);
+	printf("[+] opNum : %d\n", cladata.opNum);
 
-	if (Data.opNum != 6) {
+	if (cladata.flagnum1 == 0) // int
+	{
+		printf("[+] num1 : %d\n", cladata.inum1);
+	}
+	else if (cladata.flagnum1 == 1){ //double
+		printf("[+] num1 : %1f\n", cladata.dnum1);
+	}
+
+	if (cladata.flagnum2 == 0) // int
+	{
+		printf("[+] num2 : %d\n", cladata.inum2);
+	}
+	else if (cladata.flagnum2 == 1){
+		printf("[+] num2 : %1f\n", cladata.dnum2);
+	}
+
+	if (cladata.opNum != 6) {
 		//이 아래 문단은 서버로부터 들어오는 결과값을 받습니다. ... The paragraph below receives the resulting value from the server.
 		struct sockaddr_in s_addr;  // server ip addr
 		struct sockaddr_in c_addr;  // clinet ip addr
@@ -73,12 +98,17 @@ double getData(){
 		if(bind(s_sock, (struct sockaddr*) &s_addr, sizeof(s_addr)) == -1)
 			error_handling("bind() error");
 		c_addr_size = sizeof(c_addr);
-		memset(&Data, 0, sizeof(Data));
+		memset(&cladata, 0, sizeof(cladata));
 		int packet_len;
-		packet_len = recvfrom(s_sock, &Data, sizeof(Data), 0, (struct sockaddr*)&c_addr, &c_addr_size);
+		packet_len = recvfrom(s_sock, &cladata, sizeof(cladata), 0, (struct sockaddr*)&c_addr, &c_addr_size);
 		printf("packet_len : %d\n",packet_len);
-		printf("result : %lf\n",Data.result);  // 결과 값 출력
-		printf("----------------------------------");
+
+		if (cladata.flagresult == 0){ // int
+			printf("result : %d\n",cladata.iresult);  // 결과 값 출력
+		}
+		else if (cladata.flagresult == 1){
+			printf("[+] num2 : %1f\n", cladata.dresult);
+		}
 
 		close(s_sock); // 소켓 해제
 	}
@@ -89,33 +119,28 @@ double getData(){
 }
 
 void clear() {
-	sleep(1);
+	sleep(0.5);
 	system("clear");
 }
 
 int clac() {
 
 	while (1) {
+		clear();
 
-		cout << R"(
-사용할 연산자 번호를 입력 해주세요.
+		cout << "사용할 연산자 번호를 입력 해주세요. + - * ÷ , 1 2 3 4 : ";
+		cin >> cladata.opNum;
 
-+ : 1
-- : 2
-* : 3 
-÷ : 4  
-		
->>  )";
-		cin >> Data.opNum;
-
-		if ( !(cin.good() && (1 <= Data.opNum && Data.opNum <= 4)) ) {
+		if ( !(cin.good() && (1 <= cladata.opNum && cladata.opNum <= 4)) ) {
 			cout << "잘못된 값을 입력했습니다!! \n";
 			cin.clear();  cin.ignore(1024, '\n');
 			continue;
 		}
 
+		double typecheck; // 정수 , 실수 판별
+
 		cout << "계산할 첫 번째 값을 입력 해주세요. : ";
-		cin >> Data.num1;
+		cin >> typecheck;
 
 		if ( !cin.good() ) {
 			cout << "잘못된 값을 입력했습니다!! \n";
@@ -123,15 +148,38 @@ int clac() {
 			continue;
 		}
 
+		if (typecheck - (int)typecheck == 0){	
+			cladata.flagnum1 = 0;
+			cladata.inum1 = (int)typecheck;
+		}
+		else if (typecheck - (int)typecheck != 0){
+			cladata.flagnum1 = 1;
+			cladata.dnum1 = typecheck;
+		}
+
 		cout << "계산할 두 번째 값을 입력 해주세요. : ";
-		cin >> Data.num2;
+		cin >> typecheck;
 
 		if (!cin.good()) {
 			cout << "잘못된 값을 입력했습니다!! \n";
 			cin.clear();  cin.ignore(1024, '\n');
 			continue;
 		}
+		else if (cladata.opNum==4 && typecheck == 0){
+			printf("0으로 나눌 수 없습니다!! \n");
+			cin.clear();  cin.ignore(1024, '\n');
+			continue;
+		}
 
+		if (typecheck - (int)typecheck == 0){
+			cladata.flagnum2 = 0;
+			cladata.inum2 = (int)typecheck;
+		}
+		else if (typecheck - (int)typecheck != 0){
+			cladata.flagnum2 = 1;
+			cladata.dnum2 = typecheck;
+		}
+		
 		getData();
 		sleep(2);
 		break;
@@ -144,16 +192,9 @@ int main() {
 	set<string> commandSet{ "!calc","!cls" ,"!exit","!srvoff" };
 
 	while (1) {
+		clear();
 
-		cout << R"(
-명령어를 입력해주세요.
-
-!calc : 계산기 실행
-!cls : 출력 초기화
-!exit : 프로그램 종료
-!srvoff : 서버 종료
-		
->> )";
+		cout << "명령어를 입력해주세요. !calc !cls !exit !srvoff : ";
 		cin >> str;
 
 		if (cin.good() && str == "!calc")
@@ -165,8 +206,7 @@ int main() {
 			clear();
 		}
 		else if (cin.good() && str == "!exit")
-		{	
-			printf("클라이언트가 종료되었습니다. \n");
+		{
 			exit(0);
 		}
 		else if (cin.good() && str == "!srvoff")
@@ -180,18 +220,18 @@ int main() {
 
 			memset(&off_addr, 0, sizeof(off_addr));
 			memset(&packet, 0, sizeof(packet));
-			memset(&Data, 0, sizeof(Data));
+			memset(&cladata, 0, sizeof(cladata));
 
 			int portnum = 7904;
 			off_addr.sin_port = htons(portnum);
 			off_addr.sin_family = AF_INET;
 			off_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-			Data.opNum = 6;
+			cladata.opNum = 6;
 
 			if( (join = connect(srvoff, (struct sockaddr *) &off_addr, sizeof(off_addr))) == -1 )
 				return 0;
 				
-			sendto(srvoff, &Data, sizeof(Data), 0, (struct sockaddr *)&off_addr, sizeof(off_addr));
+			sendto(srvoff, &cladata, sizeof(cladata), 0, (struct sockaddr *)&off_addr, sizeof(off_addr));
 			close(srvoff);
 
 			printf("서버가 종료되었습니다. \n");
