@@ -3,12 +3,12 @@
 ## Team member
   학번 | 이름 | Branch | 역할 
   :-----: | :-----: | :-----: | -----
-  H3107 | 김본수 | kbs | Client
-  H3112 | 이승용 | lsy | Client
-  H3119 | 황성윤 | hsy | Readme
-  H3206 | 박현경 | phk | Readme
-  H3209 | 양승철 | ysc | Server
-  H3219 | 홍제만 | hjm | Server
+  H3107 | 김본수 | kbs | Client 구현, 소켓 통신 점검
+  H3112 | 이승용 | lsy | Client socket 구현
+  H3119 | 황성윤 | hsy | Readme 작성
+  H3206 | 박현경 | phk | Readme 작성
+  H3209 | 양승철 | ysc | Server 내 연산 구현
+  H3219 | 홍제만 | hjm | Server socket 구현, 소켓 통신 점검
 
 ## Introduction
 
