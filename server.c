@@ -293,9 +293,10 @@ int main(int argc, char * argv[]) {
       printf("answer.iresult : %d\n", answer.iresult);
       printf("answer.dresult : %lf\n", answer.dresult);
       printf("answer.opNum : %d\n", answer.opNum);
-
-      struct sockaddr_in address;
+  
       memset( & _clacdata, 0, sizeof(_clacdata));
+      
+      struct sockaddr_in address;
       address.sin_family = AF_INET;
       address.sin_addr.s_addr = inet_addr("127.0.0.1");
       address.sin_port = htons(7905);
@@ -304,7 +305,8 @@ int main(int argc, char * argv[]) {
       if ((join = connect(client, (struct sockaddr * ) & address, sizeof(address))) == -1)
         return 0;
       sendto(client, & answer, sizeof(answer), 0, (struct sockaddr * ) & address, sizeof(address));
-      memset( & _clacdata, 0, sizeof(_clacdata));
+      memset( & answer, 0, sizeof(answer));
+      
       printf("-----------------------------\n");
 
     }
