@@ -27,7 +27,7 @@ g++ -o client client.cpp -fno-stack-protector -no-pie -lm
 * ./server 7904 → ./client  
 ## 계산 명령 수행
 * 명령어   
-  **!calc**   
+  > **!calc**   
   피연산자와 연산자를 서버에 보낸다.    
   **!cls**  
   터미널창의 출력 결과 새로고침 한다.  
