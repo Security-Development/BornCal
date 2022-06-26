@@ -8,7 +8,8 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
-#include <climits>
+//#include <climits>
+#include <limits.h>
 
 const unsigned int header_len = sizeof(short)*2;
 
@@ -366,6 +367,8 @@ int main(int argc, char  *argv[]){
             if ((join = connect(client, (struct sockaddr *) &address, sizeof(address))) == -1)
                 return 0;
             sendto(client, &answer, sizeof(answer), 0, (struct sockaddr *) &address, sizeof(address));
+            memset(&_clacdata, 0 , sizeof(_clacdata));
+            printf("---------------------------------\n");
 
 
         }
