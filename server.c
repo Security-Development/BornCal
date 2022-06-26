@@ -54,7 +54,7 @@ void error_handling(char *msg){
  
 _clacData cal(_clacData cladata){            // calculate in accordance with claData
     int n_point = 1;
-	struct _clacData cla_return = cladata;
+	_clacData cla_return = cladata;
 	double num1 = 0;
 	double num2 = 0;
 	 
@@ -83,15 +83,15 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
         		
         		if (cladata.flagnum1 == 1) 	// 하나는 무조건 실수임으로 첫 번째가 정수면 두 번째는 실수 
         		{
-					cla_return.dresult = cladata.inum1 + cladata.dnum1;
+					cla_return.dresult = cladata.inum1 + cladata.dnum2;
 				}
 												
         		else
         		{
-        			cla_return.dresult += cladata.dnum1;
+        			cla_return.dresult = cladata.dnum1;
         			if (cladata.flagnum2 == 1)
         			{
-						cla_return.dresult += cladata.inum1;						
+						cla_return.dresult += cladata.inum2;						
 					}
 					
         			else
@@ -124,15 +124,15 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
         		cla_return.flagresult = 2;
         		
         		if (cladata.flagnum1 == 1) 	// 하나는 무조건 실수임으로 첫 번째가 정수면 두 번째는 실수 
-        			cla_return.dresult = cladata.inum1 - cladata.dnum1;	
+        			cla_return.dresult = cladata.inum1 - cladata.dnum2;	
 								
         		else
         		{
-        			d_result += cladata.dnum1;
+        			cla_return.dresult = cladata.dnum1;
         			if (cladata.flagnum2 == 1)
-        				cla_return.d_result -= cladata.inum1;
+        				cla_return.dresult -= cladata.inum2;
         			else
-        				cla_return.d_result -= cladata.dnum2;
+        				cla_return.dresult -= cladata.dnum2;
 				}
 				return cla_return;
 			}
@@ -161,13 +161,13 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
 				if (cladata.flagnum1 == 1)
 				{
 					num1 = cladata.inum1;
-					num2 = cladata.dnum1;
+					num2 = cladata.dnum2;
 				}
 				else
 				{
 					num1 = cladata.dnum1;
 					if (cladata.flagnum2 == 1)
-						num2 = cladata.inum1;
+						num2 = cladata.inum2;
 					else
 						num2 = cladata.dnum2;
 				}
@@ -209,13 +209,13 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
 				if (cladata.flagnum1 == 1)
 				{
 					num1 = cladata.inum1;
-					num2 = cladata.dnum1;
+					num2 = cladata.dnum2;
 				}
 				else
 				{
 					num1 = cladata.dnum1;
 					if (cladata.flagnum2 == 1)
-						num2 = cladata.inum1;
+						num2 = cladata.inum2;
 					else
 						num2 = cladata.dnum2;
 				}
@@ -229,7 +229,7 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
             	}
             	
             	cla_return.dresult = num1 / num2;
-            	return cla_return
+            	return cla_return;
 			}
     }
 }
