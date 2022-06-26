@@ -74,13 +74,20 @@ g++ -o client client.cpp -fno-stack-protector -no-pie -lm
   ![srvoff](https://user-images.githubusercontent.com/74813313/175810065-24eeac5e-5233-4756-81e6-bec6faa2ff94.png)
 
 ## 프로그램 구조 분석
-* 통신규약  
+* **통신규약**  
+  * Client가 Server에 접속하자마자 OPCode, Flag, 피연산자가 담긴 구조체를 전달한다.   
+  * 구조체를 전부 전달한 뒤 구조체 속 OPCode를 읽어 연산자인지 종료 신호인지 판단한다.   
+  * 연산자이면 Flag 값을 이용하여 피연산자들의 데이터형을 확인하고, 이를 연산한다.   
+  * 연산 결과에 따라 Flag 값을 작성하고, 이에 맞는 데이터형의 결과를 구조체에 담아 전송한다.   
+  * Client는 Flag 값을 파악해 결과 값을 읽는다.  
+            
+  **Flag**           
   Flag | 내용    
   ----- | :-----:    
   1 | 정수형 자료형    
   2 | 실수형 자료형     
   3 | 해당 없음   
- 
+
   **Client→Server**    
   OP Code | 역할 | 데이터내용 
   ----- | :-----: | :-----:  
