@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <limits.h>
+#include <float.h>
 #pragma warning(disable: 4996)
 
 using namespace std;
@@ -19,7 +21,7 @@ typedef struct Packet{
 
 struct _clacData
 {
-	int opNum; // + - * ÷ result srvoff, 1 2 3 4 5 6
+	int opNum; // + - * ÷ result srvoff ofuf , 1 2 3 4 5 6 100
 
 	int flagnum1;  // int, double, none 1 2 3
 	int flagnum2; // int, double, none 1 2 3
@@ -73,7 +75,7 @@ double getData(){
 	{
 		printf("[+] num1 : %d\n", cladata.inum1);
 	}
-	else if (cladata.flagnum1 == 2){ //double
+	else if (cladata.flagnum1 == 2){ // double
 		printf("[+] num1 : %1f\n", cladata.dnum1);
 	}
 
@@ -81,7 +83,7 @@ double getData(){
 	{
 		printf("[+] num2 : %d\n", cladata.inum2);
 	}
-	else if (cladata.flagnum2 == 2){
+	else if (cladata.flagnum2 == 2){ // double
 		printf("[+] num2 : %1f\n", cladata.dnum2);
 	}
 
@@ -101,15 +103,16 @@ double getData(){
 		memset(&cladata, 0, sizeof(cladata));
 		int packet_len;
 		packet_len = recvfrom(s_sock, &cladata, sizeof(cladata), 0, (struct sockaddr*)&c_addr, &c_addr_size);
+		
 		printf("packet_len : %d\n",packet_len);
 
 		if (cladata.flagresult == 1){ // int
 			printf("result : %d\n",cladata.iresult);  // 결과 값 출력
 		}
-		else if (cladata.flagresult == 2){
-			printf("[+] num2 : %1f\n", cladata.dresult);
+		else if (cladata.flagresult == 2){ // double
+			printf("result : %1f\n",cladata.dresult);  // 결과 값 출력
 		}
-
+	
 		close(s_sock); // 소켓 해제
 	}
 
@@ -117,7 +120,6 @@ double getData(){
 
 	return 0;
 }
-
 void clear() {
 	sleep(0.5);
 	system("clear");
@@ -147,8 +149,20 @@ int clac() {
 			cin.clear();  cin.ignore(1024, '\n');
 			continue;
 		}
+		if( typecheck >= INT_MAX) {
+			printf("오버플로우 발생가 발생했습니다!! \n");
+			cin.clear();  cin.ignore(1024, '\n');
+			continue;
+		} 
+			
+		if(typecheck < INT_MIN) {
+			printf("언더플로우 발생가 발생했습니다!! \n가 발생했습니다!! \n");
+			cin.clear();  cin.ignore(1024, '\n');
+			continue; 
+		}
 
 		if (typecheck - (int)typecheck == 0){	
+	
 			cladata.flagnum1 = 1;
 			cladata.inum1 = (int)typecheck;
 		}
@@ -165,10 +179,23 @@ int clac() {
 			cin.clear();  cin.ignore(1024, '\n');
 			continue;
 		}
+
 		else if (cladata.opNum==4 && typecheck == 0){
 			printf("0으로 나눌 수 없습니다!! \n");
 			cin.clear();  cin.ignore(1024, '\n');
 			continue;
+		}
+		
+		if( typecheck >= INT_MAX) {
+			printf("오버플로우 발생가 발생했습니다!! \n");
+			cin.clear();  cin.ignore(1024, '\n');
+			continue;
+		} 
+			
+		if(typecheck < INT_MIN) {
+			printf("언더플로우 발생가 발생했습니다!! \n");
+			cin.clear();  cin.ignore(1024, '\n');
+			continue; 
 		}
 
 		if (typecheck - (int)typecheck == 0){
