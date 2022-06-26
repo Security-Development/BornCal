@@ -44,25 +44,6 @@ typedef struct _clacData
 	double dresult; // dê²°ê³¼ ê°’
 }_clacData;
 
-struct _clacData
-{
-    int opNum; // + - * Ã· result srvoff, 1 2 3 4 5 6
-
-    int flagnum1;  // int, double, none 1 2 3
-    int flagnum2; // int, double, none 1 2 3
-
-    int inum1; // iìˆ«ì1
-    int inum2; // iìˆ«ì2
-
-    double dnum1;  // dìˆ«ì1
-    double dnum2; // dìˆ«ì2
-
-    int flagresult;  // int, double, none 1 2 3
-
-    int iresult; // iê²°ê³¼ ê°’
-    double dresult; // dê²°ê³¼ ê°’
-};
-
 #define MAX_MSG_SIZE 50
 
 void error_handling(char *msg){
@@ -80,7 +61,7 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
     switch(cladata.opNum)  
     {
         case 1:		// plus+
-        	if (cladata.flagnum1 == 1 || cladata.flagnum2 == 1)	// µÎ ¼ö ¸ğµÎ Á¤¼öÀÏ ¶§ 
+        	if (cladata.flagnum1 == 1 || cladata.flagnum2 == 1)	// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
         	{
         		cla_return.flagresult = 1;
         		
@@ -100,7 +81,7 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
         	{
         		cla_return.flagresult = 2;
         		
-        		if (cladata.flagnum1 == 1) 	// ÇÏ³ª´Â ¹«Á¶°Ç ½Ç¼öÀÓÀ¸·Î Ã¹ ¹øÂ°°¡ Á¤¼ö¸é µÎ ¹øÂ°´Â ½Ç¼ö 
+        		if (cladata.flagnum1 == 1) 	// ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¹ ï¿½ï¿½Â°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Â°ï¿½ï¿½ ï¿½Ç¼ï¿½ 
         		{
 					cla_return.dresult = cladata.inum1 + cladata.dnum2;
 				}
@@ -122,7 +103,7 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
 			} 
 
         case 2:		// Minus-
-        	if (cladata.flagnum1 == 1 || cladata.flagnum2 == 1)	// µÎ ¼ö ¸ğµÎ Á¤¼öÀÏ ¶§ 
+        	if (cladata.flagnum1 == 1 || cladata.flagnum2 == 1)	// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
         	{
         		cla_return.flagresult = 1;
         		
@@ -142,7 +123,7 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
         	{
         		cla_return.flagresult = 2;
         		
-        		if (cladata.flagnum1 == 1) 	// ÇÏ³ª´Â ¹«Á¶°Ç ½Ç¼öÀÓÀ¸·Î Ã¹ ¹øÂ°°¡ Á¤¼ö¸é µÎ ¹øÂ°´Â ½Ç¼ö 
+        		if (cladata.flagnum1 == 1) 	// ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¹ ï¿½ï¿½Â°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Â°ï¿½ï¿½ ï¿½Ç¼ï¿½ 
         			cla_return.dresult = cladata.inum1 - cladata.dnum2;	
 								
         		else
@@ -260,14 +241,12 @@ int main(int argc, char  *argv[]){
 
         struct sockaddr_in s_addr;  // server ip addr
         struct sockaddr_in c_addr;  // clinet ip addr
-        struct claData cladata;
-        struct _clacData _clacData;
+        struct _clacData _clacdata;
         socklen_t c_addr_size;
 
         char msg[MAX_MSG_SIZE];
         int msg_len;
         int packet_len;
-        double answer;
 
 
         if (argc != 2) {
@@ -291,9 +270,9 @@ int main(int argc, char  *argv[]){
             while (1) {
                 c_addr_size = sizeof(c_addr);
                 //memset(&cladata, 0, sizeof(cladata));
-                memset(&_clacData, 0, sizeof(_clacData));
+                memset(&_clacdata, 0, sizeof(_clacdata));
                 //msg_len = recvfrom(s_sock, &cladata, sizeof(cladata), 0, (struct sockaddr*)&c_addr, &c_addr_size);
-                packet_len = recvfrom(s_sock, &_clacData, sizeof(_clacData), 0, (struct sockaddr *) &c_addr, &c_addr_size);
+                packet_len = recvfrom(s_sock, &_clacdata, sizeof(_clacdata), 0, (struct sockaddr *) &c_addr, &c_addr_size);
                 if (packet_len == -1 && strcmp(inet_ntoa(c_addr.sin_addr), "0.0.0.0")) {
                     error_handling("recvfrom() error");
                     continue;
@@ -301,21 +280,25 @@ int main(int argc, char  *argv[]){
                     break;
                 }
             }
-            if (_clacData.opNum == 6.0) {
+            if (_clacdata.opNum == 6.0) {
                 return 0;
             }
             printf("packet_len : %d\n",packet_len);
-            printf("_clacData.opNum : %d\n",_clacData.opNum);
-            printf("_clacData.inum1 : %d\n",_clacData.inum1);
-            printf("_clacData.inum2 : %d\n",_clacData.inum2);
+            printf("_clacdata.opNum : %d\n",_clacdata.opNum);
+            printf("_clacdata.inum1 : %d\n",_clacdata.inum1);
+            printf("_clacdata.inum2 : %d\n",_clacdata.inum2);
 
             _clacData answer;
-            answer = cal(_clacData);
+            answer = cal(_clacdata);
 
-            //a,b = cal(_clacData);
+            printf("answer.iresult : %d\n",answer.iresult);
+            printf("answer.dresult : %lf\n",answer.dresult);
+            //printf("answer. : %d\n",answer.);
+
+            //a,b = cal(_clacdata);
             //sleep(1);
             struct sockaddr_in address;
-            memset(&_clacData, 0, sizeof(_clacData));
+            memset(&_clacdata, 0, sizeof(_clacdata));
             address.sin_family = AF_INET;
             address.sin_addr.s_addr = inet_addr("127.0.0.1");
             address.sin_port = htons(7905);
