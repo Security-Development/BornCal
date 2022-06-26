@@ -181,7 +181,7 @@ int clac() {
 		}
 
 		else if (cladata.opNum==4 && typecheck == 0){
-			printf("0으로 나눌 수 없습니다!! \n");
+			printf("0 으로 나눌 수 없습니다!! \n");
 			cin.clear();  cin.ignore(1024, '\n');
 			continue;
 		}
@@ -203,14 +203,12 @@ int clac() {
 			cladata.inum2 = (int)typecheck;
 		}
 		else if (typecheck - (int)typecheck != 0){
-
-			
 			cladata.flagnum2 = 2;
 			cladata.dnum2 = typecheck;
 		}
 		
 		getData();
-		sleep(2);
+		sleep(1.5);
 		break;
 	}
 }
