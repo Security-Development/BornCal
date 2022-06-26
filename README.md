@@ -25,7 +25,7 @@ g++ -o client client.cpp -fno-stack-protector -no-pie -lm
 ```  
 ## 프로그램 실행    
 * ./server 7904 → ./client  
-## 계산 명령 수행
+
 * 명령어   
   > **!calc**   
   피연산자와 연산자를 서버에 보낸다.    
@@ -36,6 +36,7 @@ g++ -o client client.cpp -fno-stack-protector -no-pie -lm
   **!srvoff**  
   서버를 종료시킨다.    
   
+## 계산 명령 수행  
 * **case 1**   
 30 + 20  
   ![정수 정수 덧셈](https://user-images.githubusercontent.com/74813313/175808469-ba05c4f9-c540-411e-bbde-b7715ae75641.png)   
