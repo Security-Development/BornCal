@@ -14,7 +14,7 @@
 * C/C++
 * Ubuntu 18.04  
   
-**Program setting**  
+**Program compile**  
 * Server  
 ```
 gcc -o server server.cpp -fno-stack-protector -no-pie -lm
@@ -30,7 +30,7 @@ g++ -o client client.cpp -fno-stack-protector -no-pie -lm
   > **!calc**   
   피연산자와 연산자를 서버에 보낸다.    
   **!cls**  
-  터미널창의 출력 결과 새로고침 한다.  
+  터미널창의 출력 결과를 새로고침한다.  
   **!exit**  
   프로그램을 종료시킨다.    
   **!srvoff**  
