@@ -21,7 +21,7 @@ typedef struct Packet{
 
 struct _clacData
 {
-	int opNum; // + - * ÷ result srvoff, 1 2 3 4 5 6
+	int opNum; // + - * ÷ result srvoff ofuf , 1 2 3 4 5 6 100
 
 	int flagnum1;  // int, double, none 1 2 3
 	int flagnum2; // int, double, none 1 2 3
@@ -75,7 +75,7 @@ double getData(){
 	{
 		printf("[+] num1 : %d\n", cladata.inum1);
 	}
-	else if (cladata.flagnum1 == 2){ //double
+	else if (cladata.flagnum1 == 2){ // double
 		printf("[+] num1 : %1f\n", cladata.dnum1);
 	}
 
@@ -83,7 +83,7 @@ double getData(){
 	{
 		printf("[+] num2 : %d\n", cladata.inum2);
 	}
-	else if (cladata.flagnum2 == 2){
+	else if (cladata.flagnum2 == 2){ // double
 		printf("[+] num2 : %1f\n", cladata.dnum2);
 	}
 
@@ -104,20 +104,15 @@ double getData(){
 		int packet_len;
 		packet_len = recvfrom(s_sock, &cladata, sizeof(cladata), 0, (struct sockaddr*)&c_addr, &c_addr_size);
 		
-		if( packet_len >= 50 ){ //버퍼 오버플로우 방지 데이터 유효성 검사
-			printf("정해진 메세지 크기를 넘었습니다.");
-		}else {
-			
-			printf("packet_len : %d\n",packet_len);
+		printf("packet_len : %d\n",packet_len);
 
-			if (cladata.flagresult == 1){ // int
-				printf("result : %d\n",cladata.iresult);  // 결과 값 출력
-			}
-			else if (cladata.flagresult == 2){
-				printf("[+] num2 : %1f\n", cladata.dresult);
-			}
+		if (cladata.flagresult == 1){ // int
+			printf("result : %d\n",cladata.iresult);  // 결과 값 출력
 		}
-
+		else if (cladata.flagresult == 2){ // double
+			printf("result : %1f\n",cladata.dresult);  // 결과 값 출력
+		}
+	
 		close(s_sock); // 소켓 해제
 	}
 
@@ -126,7 +121,7 @@ double getData(){
 	return 0;
 }
 void clear() {
-	sleep(0.5);
+	sleep(1);
 	system("clear");
 }
 
@@ -155,13 +150,13 @@ int clac() {
 			continue;
 		}
 		if( typecheck >= INT_MAX) {
-			printf("오버플로우 발생");
+			printf("오버플로우가 발생했습니다!! \n");
 			cin.clear();  cin.ignore(1024, '\n');
 			continue;
 		} 
 			
 		if(typecheck < INT_MIN) {
-			printf("언더플로우 발생");
+			printf("언더플로우가 발생했습니다!! \n");
 			cin.clear();  cin.ignore(1024, '\n');
 			continue; 
 		}
@@ -185,21 +180,20 @@ int clac() {
 			continue;
 		}
 
-		
 		else if (cladata.opNum==4 && typecheck == 0){
-			printf("0으로 나눌 수 없습니다!! \n");
+			printf("0 으로 나눌 수 없습니다!! \n");
 			cin.clear();  cin.ignore(1024, '\n');
 			continue;
 		}
 		
 		if( typecheck >= INT_MAX) {
-			printf("오버플로우 발생");
+			printf("오버플로우가 발생했습니다!! \n");
 			cin.clear();  cin.ignore(1024, '\n');
 			continue;
 		} 
 			
 		if(typecheck < INT_MIN) {
-			printf("언더플로우 발생");
+			printf("언더플로우가 발생했습니다!! \n");
 			cin.clear();  cin.ignore(1024, '\n');
 			continue; 
 		}
@@ -209,14 +203,12 @@ int clac() {
 			cladata.inum2 = (int)typecheck;
 		}
 		else if (typecheck - (int)typecheck != 0){
-
-			
 			cladata.flagnum2 = 2;
 			cladata.dnum2 = typecheck;
 		}
 		
 		getData();
-		sleep(2);
+		sleep(1.5);
 		break;
 	}
 }
