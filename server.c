@@ -1,6 +1,3 @@
-//main writer : hjm , ysc
-//first version file from /ver2/u_sv.c (git commit number : c9cccf157918fc91a380594591e03a72d0a08b8f)
-
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -8,7 +5,6 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
-//#include <climits>
 #include <limits.h>
 
 const unsigned int header_len = sizeof(short)*2;
@@ -19,31 +15,23 @@ typedef struct Packet{
     char msg[50];
 } Packet;
 
-/*
-typedef struct claData {
-    int opNum;
-    double num1;
-    double num2;
-    double result; // 결과값 저장
-} claData;*/
-
 typedef struct _clacData 
 {
-	int opNum; // + - * / result srvoff, 1 2 3 4 5 6 
+	int opNum;
  
-	int flagnum1;  // int, double, none 1 2 3
-	int flagnum2; // int, double, none 1 2 3
+	int flagnum1;
+	int flagnum2;
 
-	int inum1; // i숫자1
-	int inum2; // i숫자2
+	int inum1;
+	int inum2;
  
-	double dnum1;  // d숫자1
-	double dnum2; // d숫자2
- 
-	int flagresult;  // int, double, none 1 2 3 
+	double dnum1;
+	double dnum2;
 
-	int iresult; // i결과 값
-	double dresult; // d결과 값
+	int flagresult;
+
+	int iresult;
+	double dresult;
 }_clacData;
 
 #define MAX_MSG_SIZE 50
@@ -117,7 +105,7 @@ int SafeMultifly(int nLeftValue, int nRightValue)
     }
 }
  
-_clacData cal(_clacData cladata){            // calculate in accordance with claData
+_clacData cal(_clacData cladata){
     int n_point = 1;
 	_clacData cla_return = cladata;
 	double num1 = 0;
@@ -125,7 +113,7 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
 	 
     switch(cladata.opNum)  
     {
-        case 1:		// plus+
+        case 1:
         	if (cladata.flagnum1 == 1 && cladata.flagnum2 == 1)	// �� �� ��� ������ �� 
         	{
         		cla_return.flagresult = 1;
@@ -162,7 +150,7 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
 				return cla_return;
 			} 
 
-        case 2:		// Minus-
+        case 2:
         	if (cladata.flagnum1 == 1 && cladata.flagnum2 == 1)	// �� �� ��� ������ �� 
         	{
         		cla_return.flagresult = 1;
@@ -192,7 +180,7 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
 				return cla_return;
 			}
 
-        case 3:		// Multiplication*
+        case 3:
 			if (cladata.flagnum1 == 1 && cladata.flagnum2 == 1)
 			{
 				cla_return.flagresult = 1;
@@ -235,7 +223,7 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
             	return cla_return;
 			}
 
-        case 4:		//division/ 
+        case 4:
         	if (cladata.flagnum1 == 1 && cladata.flagnum2 == 1)
 			{
 				cla_return.flagresult = 1;
@@ -289,8 +277,8 @@ int main(int argc, char  *argv[]){
 
         int s_sock; // listening port
 
-        struct sockaddr_in s_addr;  // server ip addr
-        struct sockaddr_in c_addr;  // clinet ip addr
+        struct sockaddr_in s_addr;
+        struct sockaddr_in c_addr;
         struct _clacData _clacdata;
         socklen_t c_addr_size;
 
@@ -309,19 +297,17 @@ int main(int argc, char  *argv[]){
         if (s_sock == -1)
             error_handling("socket() error");
 
-        memset(&s_addr, 0, sizeof(s_addr)); // socketaddr_in struct initialize
+        memset(&s_addr, 0, sizeof(s_addr));
         s_addr.sin_family = AF_INET;
-        s_addr.sin_addr.s_addr = htonl(INADDR_ANY); // for server, localhost
-        s_addr.sin_port = htons(atoi(argv[1])); // listen port#
+        s_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+        s_addr.sin_port = htons(atoi(argv[1]));
 
         if (bind(s_sock, (struct sockaddr *) &s_addr, sizeof(s_addr)) == -1) // bind port & ip to socket
             error_handling("bind() error");
-        while (1) {   // server will not closes after client disconnect.
+        while (1) {
             while (1) {
                 c_addr_size = sizeof(c_addr);
-                //memset(&cladata, 0, sizeof(cladata));
                 memset(&_clacdata, 0, sizeof(_clacdata));
-                //msg_len = recvfrom(s_sock, &cladata, sizeof(cladata), 0, (struct sockaddr*)&c_addr, &c_addr_size);
                 packet_len = recvfrom(s_sock, &_clacdata, sizeof(_clacdata), 0, (struct sockaddr *) &c_addr, &c_addr_size);
                 if (packet_len == -1 && strcmp(inet_ntoa(c_addr.sin_addr), "0.0.0.0")) {
                     error_handling("recvfrom() error");
@@ -345,24 +331,12 @@ int main(int argc, char  *argv[]){
 
             printf("answer.iresult : %d\n",answer.iresult);
             printf("answer.dresult : %lf\n",answer.dresult);
-            //printf("answer. : %d\n",answer.);
             printf("answer.opNum : %d\n",answer.opNum);
-
-            //a,b = cal(_clacdata);
-            //sleep(1);
             struct sockaddr_in address;
             memset(&_clacdata, 0, sizeof(_clacdata));
             address.sin_family = AF_INET;
             address.sin_addr.s_addr = inet_addr("127.0.0.1");
             address.sin_port = htons(7905);
-
-            /*
-            cladata.opNum = 5;
-            cladata.num1 = answer;
-            cladata.num2 = answer;
-            cladata.result = answer; // 결과값에 연산 결과 저장
-            */
-
             int client = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP), join, size, result = 0;
             if ((join = connect(client, (struct sockaddr *) &address, sizeof(address))) == -1)
                 return 0;
