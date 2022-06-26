@@ -12,7 +12,7 @@
 
 #include <sys/socket.h>
 
-#include <climits>
+#include <limits>
 
 const unsigned int header_len = sizeof(short) * 2;
 
