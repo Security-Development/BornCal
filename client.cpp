@@ -106,13 +106,18 @@ double getData(){
 		
 		printf("packet_len : %d\n",packet_len);
 
-		if (cladata.flagresult == 1){ // int
-			printf("result : %d\n",cladata.iresult);  // 결과 값 출력
+		if (cladata.opNum != 100){
+			if (cladata.flagresult == 1){ // int
+				printf("result : %d\n",cladata.iresult);  // 결과 값 출력
+			}
+			else if (cladata.flagresult == 2){ // double
+				printf("result : %1f\n",cladata.dresult);  // 결과 값 출력
+			}
 		}
-		else if (cladata.flagresult == 2){ // double
-			printf("result : %1f\n",cladata.dresult);  // 결과 값 출력
+		else if (cladata.opNum == 100){
+			printf("연산 과정에서 오버플로우나 언더플로우가 발생했습니다!! \n");
 		}
-	
+
 		close(s_sock); // 소켓 해제
 	}
 
@@ -181,7 +186,7 @@ int clac() {
 		}
 
 		else if (cladata.opNum==4 && typecheck == 0){
-			printf("0으로 나눌 수 없습니다!! \n");
+			printf("0 으로 나눌 수 없습니다!! \n");
 			cin.clear();  cin.ignore(1024, '\n');
 			continue;
 		}
@@ -208,7 +213,7 @@ int clac() {
 		}
 		
 		getData();
-		sleep(2);
+		sleep(1.5);
 		break;
 	}
 }
@@ -271,5 +276,4 @@ int main() {
 			continue;
 		}
 	}
-
 }
