@@ -61,7 +61,7 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
     switch(cladata.opNum)  
     {
         case 1:		// plus+
-        	if (cladata.flagnum1 == 1 || cladata.flagnum2 == 1)	// �� �� ��� ������ �� 
+        	if (cladata.flagnum1 == 1 && cladata.flagnum2 == 1)	// �� �� ��� ������ �� 
         	{
         		cla_return.flagresult = 1;
         		
@@ -103,7 +103,7 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
 			} 
 
         case 2:		// Minus-
-        	if (cladata.flagnum1 == 1 || cladata.flagnum2 == 1)	// �� �� ��� ������ �� 
+        	if (cladata.flagnum1 == 1 && cladata.flagnum2 == 1)	// �� �� ��� ������ �� 
         	{
         		cla_return.flagresult = 1;
         		
@@ -138,7 +138,7 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
 			}
 
         case 3:		// Multiplication*
-			if (cladata.flagnum1 == 1 || cladata.flagnum2 == 1)
+			if (cladata.flagnum1 == 1 && cladata.flagnum2 == 1)
 			{
 				cla_return.flagresult = 1;
 				
@@ -186,7 +186,7 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
 			}
 
         case 4:		//division/ 
-        	if (cladata.flagnum1 == 1 || cladata.flagnum2 == 1)
+        	if (cladata.flagnum1 == 1 && cladata.flagnum2 == 1)
 			{
 				cla_return.flagresult = 1;
 				
