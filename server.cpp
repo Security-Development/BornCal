@@ -105,7 +105,7 @@ _clacData cal(_clacData cladata) { // calculate in accordance with claData
 
   switch (cladata.opNum) {
   case 1: // plus+
-    if (cladata.flagnum1 == 1 && cladata.flagnum2 == 1) // �� �� ��� ������ �� 
+    if (cladata.flagnum1 == 1 && cladata.flagnum2 == 1) 
     {
       cla_return.flagresult = 1;
       cla_return.iresult = cladata.inum1 + cladata.inum2;
@@ -117,7 +117,7 @@ _clacData cal(_clacData cladata) { // calculate in accordance with claData
     } else {
       cla_return.flagresult = 2;
 
-      if (cladata.flagnum1 == 1) // �ϳ��� ������ �Ǽ������� ù ��°�� ������ �� ��°�� �Ǽ� 
+      if (cladata.flagnum1 == 1) 
       {
         cla_return.dresult = cladata.inum1 + cladata.dnum2;
       } else {
@@ -132,7 +132,7 @@ _clacData cal(_clacData cladata) { // calculate in accordance with claData
     }
 
     case 2: // Minus-
-      if (cladata.flagnum1 == 1 && cladata.flagnum2 == 1) // �� �� ��� ������ �� 
+      if (cladata.flagnum1 == 1 && cladata.flagnum2 == 1) 
       {
         cla_return.flagresult = 1;
         cla_return.iresult = cladata.inum1 - cladata.inum2;
@@ -144,7 +144,7 @@ _clacData cal(_clacData cladata) { // calculate in accordance with claData
       } else {
         cla_return.flagresult = 2;
 
-        if (cladata.flagnum1 == 1) // �ϳ��� ������ �Ǽ������� ù ��°�� ������ �� ��°�� �Ǽ� 
+        if (cladata.flagnum1 == 1) 
           cla_return.dresult = cladata.inum1 - cladata.dnum2;
 
         else {
@@ -181,7 +181,7 @@ _clacData cal(_clacData cladata) { // calculate in accordance with claData
           }
 
           while (1) {
-            if (fmod(num1, 1.0 f) == 0 && fmod(num2, 1.0 f) == 0)
+            if (fmod(num1, 1.0f) == 0 && fmod(num2, 1.0f) == 0)
               break;
             num1 *= 10;
             num2 *= 10;
@@ -218,7 +218,7 @@ _clacData cal(_clacData cladata) { // calculate in accordance with claData
             }
 
             while (1) {
-              if (fmod(num1, 1.0 f) == 0 && fmod(num2, 1.0 f) == 0)
+              if (fmod(num1, 1.0f) == 0 && fmod(num2, 1.0f) == 0)
                 break;
               num1 *= 10;
               num2 *= 10;
