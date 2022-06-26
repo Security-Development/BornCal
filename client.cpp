@@ -102,7 +102,7 @@ double getData(){
 		int packet_len;
 		packet_len = recvfrom(s_sock, &cladata, sizeof(cladata), 0, (struct sockaddr*)&c_addr, &c_addr_size);
 		
-		if( packet_len >= 50 ){
+		if( packet_len >= 50 ){ //버퍼 오버플로우 방지 데이터 유효성 검사
 			printf("정해진 메세지 크기를 넘었습니다.");
 		}else {
 			
