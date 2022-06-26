@@ -1,6 +1,6 @@
-# BornChat
+# BornCalc
 
 ```
-Program Purpose : Chatting
-Development Language : C#
+Program Purpose : Calculator
+Development Language : C++
 ```
