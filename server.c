@@ -84,8 +84,16 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
         	{
         		cla_return.flagresult = 1;
         		
-        		cla_return.iresult = cladata.inum1 + cladata.inum2;
-        		return cla_return;  
+        		if ((cladata.inum1 + cladata.inum2) <= 2147483647 && (cladata.inum1 + cladata.inum2) >= -2147483648)
+        		{
+        			cla_return.iresult = cladata.inum1 + cladata.inum2;
+				}
+				else
+				{
+        			cla_return.opNum = 100;
+        			return cla_return;
+				}
+				return cla_return;
 			}
 			
         	else
@@ -93,15 +101,22 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
         		cla_return.flagresult = 2;
         		
         		if (cladata.flagnum1 == 1) 	// 하나는 무조건 실수임으로 첫 번째가 정수면 두 번째는 실수 
-        			d_result = cladata.inum1 + cladata.dnum1;	
-								
+        		{
+					cla_return.dresult = cladata.inum1 + cladata.dnum1;
+				}
+												
         		else
         		{
         			cla_return.dresult += cladata.dnum1;
         			if (cladata.flagnum2 == 1)
-        				cla_return.dresult += cladata.inum1;
+        			{
+						cla_return.dresult += cladata.inum1;						
+					}
+					
         			else
-        				cla_return.dresult += cladata.dnum2;
+        			{
+						cla_return.dresult += cladata.dnum2;
+					}   				
 				}
 				return cla_return;
 			} 
@@ -111,7 +126,15 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
         	{
         		cla_return.flagresult = 1;
         		
-        		cla_return.iresult = cladata.inum1 - cladata.inum2;
+        		if ((cladata.inum1 - cladata.inum2) <= 2147483647 && (cladata.inum1 - cladata.inum2) >= -2147483648)
+        		{
+        			cla_return.iresult = cladata.inum1 - cladata.inum2;
+				}
+				else
+				{
+        			cla_return.opNum = 100;
+        			return cla_return;
+				}
         		return cla_return;
 			}
 			
@@ -120,17 +143,17 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
         		cla_return.flagresult = 2;
         		
         		if (cladata.flagnum1 == 1) 	// 하나는 무조건 실수임으로 첫 번째가 정수면 두 번째는 실수 
-        			d_result = cladata.inum1 - cladata.dnum1;	
+        			cla_return.dresult = cladata.inum1 - cladata.dnum1;	
 								
         		else
         		{
         			d_result += cladata.dnum1;
         			if (cladata.flagnum2 == 1)
-        				d_result -= cladata.inum1;
+        				cla_return.d_result -= cladata.inum1;
         			else
-        				d_result -= cladata.dnum2;
+        				cla_return.d_result -= cladata.dnum2;
 				}
-				return d_result, 2;
+				return cla_return;
 			}
 
         case 3:		// Multiplication*
@@ -138,7 +161,15 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
 			{
 				cla_return.flagresult = 1;
 				
-				cla_return.iresult = cladata.inum1 * cladata.inum2;
+				if ((cladata.inum1 * cladata.inum2) <= 2147483647 && (cladata.inum1 * cladata.inum2) >= -2147483648)
+        		{
+        			cla_return.iresult = cladata.inum1 * cladata.inum2;
+				}
+				else
+				{
+        			cla_return.opNum = 100;
+        			return cla_return;
+				}
 				return cla_return;
 			}
 		
@@ -178,7 +209,15 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
 			{
 				cla_return.flagresult = 1;
 				
-				cla_return.iresult = cladata.inum1 / cladata.inum2;
+				if ((cladata.inum1 / cladata.inum2) <= 2147483647 && (cladata.inum1 / cladata.inum2) >= -2147483648)
+        		{
+        			cla_return.iresult = cladata.inum1 / cladata.inum2;
+				}
+				else
+				{
+        			cla_return.opNum = 100;
+        			return cla_return;
+				}
 				return cla_return;
 			}
         
