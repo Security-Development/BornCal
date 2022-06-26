@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <limits.h>
+#include <float.h>
 #pragma warning(disable: 4996)
 
 using namespace std;
@@ -123,7 +125,6 @@ double getData(){
 
 	return 0;
 }
-
 void clear() {
 	sleep(0.5);
 	system("clear");
@@ -153,8 +154,20 @@ int clac() {
 			cin.clear();  cin.ignore(1024, '\n');
 			continue;
 		}
+		if( typecheck >= INT_MAX) {
+				printf("오버플로우 발생");
+				cin.clear();  cin.ignore(1024, '\n');
+				continue;
+			} 
+			
+			if(typecheck < INT_MIN) {
+				printf("언더플로우 발생");
+				cin.clear();  cin.ignore(1024, '\n');
+				continue; 
+		}
 
 		if (typecheck - (int)typecheck == 0){	
+	
 			cladata.flagnum1 = 1;
 			cladata.inum1 = (int)typecheck;
 		}
@@ -171,17 +184,33 @@ int clac() {
 			cin.clear();  cin.ignore(1024, '\n');
 			continue;
 		}
+
+		
 		else if (cladata.opNum==4 && typecheck == 0){
 			printf("0으로 나눌 수 없습니다!! \n");
 			cin.clear();  cin.ignore(1024, '\n');
 			continue;
 		}
+		
+		if( typecheck >= INT_MAX) {
+				printf("오버플로우 발생");
+				cin.clear();  cin.ignore(1024, '\n');
+				continue;
+			} 
+			
+			if(typecheck < INT_MIN) {
+				printf("언더플로우 발생");
+				cin.clear();  cin.ignore(1024, '\n');
+				continue; 
+			}
 
 		if (typecheck - (int)typecheck == 0){
 			cladata.flagnum2 = 1;
 			cladata.inum2 = (int)typecheck;
 		}
 		else if (typecheck - (int)typecheck != 0){
+
+			
 			cladata.flagnum2 = 2;
 			cladata.dnum2 = typecheck;
 		}
