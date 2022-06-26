@@ -34,6 +34,12 @@ g++ -o client client.cpp -fno-stack-protector -no-pie -lm
 프로그램을 종료시키는 exit() 함수를 실행시킨다.  
 * **!srvoff**  
 server 측에 opcode 6를 보내 서버를 종료시킨다.  
+
+  ![정수 정수 덧셈](https://user-images.githubusercontent.com/74813313/175808469-ba05c4f9-c540-411e-bbde-b7715ae75641.png)    
+  ![정수 실수 뺄셈](https://user-images.githubusercontent.com/74813313/175808514-fa1433f6-9174-4484-bde6-f86c735f5220.png)     
+  ![실수 정수 곱셈](https://user-images.githubusercontent.com/74813313/175808558-2a84b2ab-9d49-4fc2-a109-164789ee15ad.png)   
+  ![실수 실수 나눗셈](https://user-images.githubusercontent.com/74813313/175808571-28a50c1e-0f3f-4753-9d37-094b2ae53dcd.png)  
+ 
 ## 오류 수정
 
 ## 프로그램 종료
