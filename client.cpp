@@ -140,6 +140,7 @@ double getData() {
   }
 
   close(client); // 소켓 해제
+  memset( & cladata, 0, sizeof(cladata));
 
   return 0;
 }
