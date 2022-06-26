@@ -51,6 +51,69 @@ void error_handling(char *msg){
     fputc('\n',stderr);
     exit(1);
 }
+
+int SafeAdd(int nLeftValue, int nRightValue)
+{
+    if (nRightValue > 0)
+    {
+        if (nLeftValue > (2174483647 - nRightValue))
+            return 0;
+        else
+            return 1;
+    }
+    else if (nRightValue < 0)
+    {
+        if (nLeftValue < (-2174483648 - nRightValue))
+            return 0;
+        else
+            return 1;
+    }
+}
+
+int SafeSubtract(int nLeftValue, int nRightValue)
+{
+    if (nRightValue > 0)
+    {
+        if (nLeftValue < 2174483647 + nRightValue)
+            return 0;
+        else
+            return 1;
+    }
+    else if (nRightValue < 0)
+    {
+        if (nLeftValue > -2174483648 + nRightValue)
+            return 0;
+        else
+            return 1;
+    }
+}
+
+int SafeMultifly(int nLeftValue, int nRightValue)
+{
+    if (nRightValue == 0 || nLeftValue == 0)
+    {
+        return 1;
+    }
+    else
+    {
+
+        if ((nLeftValue > 0 && nRightValue > 0) ||
+            (nLeftValue < 0 && nRightValue < 0))
+        {
+            if (abs(nRightValue) > (2174483647 / abs(nLeftValue)))
+                return 0;
+            else
+                return 1;
+        }
+        else
+        {
+            if (-abs(nRightValue) < (-2174483648 / abs(nLeftValue)))
+                return 0;
+            else
+                return 1;
+        }
+    }
+}
  
 _clacData cal(_clacData cladata){            // calculate in accordance with claData
     int n_point = 1;
@@ -64,16 +127,11 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
         	if (cladata.flagnum1 == 1 && cladata.flagnum2 == 1)	// �� �� ��� ������ �� 
         	{
         		cla_return.flagresult = 1;
-        		
-        		if ((cladata.inum1 + cladata.inum2) <= 2147483647 || (cladata.inum1 + cladata.inum2) >= -2147483648)
-        		{
-        			cla_return.iresult = cladata.inum1 + cladata.inum2;
-				}
-				else
-				{
-        			cla_return.opNum = 100;
-        			return cla_return;
-				}
+        		cla_return.iresult = cladata.inum1 + cladata.inum2;
+				
+				if (SafeAdd(cladata.inum1, cladata.inum2) == 0)
+					cla_return.opNum = 100;
+				
 				return cla_return;
 			}
 			
@@ -106,16 +164,11 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
         	if (cladata.flagnum1 == 1 && cladata.flagnum2 == 1)	// �� �� ��� ������ �� 
         	{
         		cla_return.flagresult = 1;
-        		
-        		if ((cladata.inum1 - cladata.inum2) <= 2147483647 || (cladata.inum1 - cladata.inum2) >= -2147483648)
-        		{
-        			cla_return.iresult = cladata.inum1 - cladata.inum2;
-				}
-				else
-				{
-        			cla_return.opNum = 100;
-        			return cla_return;
-				}
+				cla_return.iresult = cladata.inum1 - cladata.inum2;
+				
+				if (SafeSubtract(cladata.inum1, cladata.inum2) == 0)
+					cla_return.opNum = 100;
+				
         		return cla_return;
 			}
 			
@@ -141,16 +194,11 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
 			if (cladata.flagnum1 == 1 && cladata.flagnum2 == 1)
 			{
 				cla_return.flagresult = 1;
+				cla_return.iresult = cladata.inum1 * cladata.inum2;
 				
-				if ((cladata.inum1 * cladata.inum2) <= 2147483647 || (cladata.inum1 * cladata.inum2) >= -2147483648)
-        		{
-        			cla_return.iresult = cladata.inum1 * cladata.inum2;
-				}
-				else
-				{
-        			cla_return.opNum = 100;
-        			return cla_return;
-				}
+				if (SafeSafeMultifly(cladata.inum1, cladata.inum2) == 0)
+					cla_return.opNum = 100;
+				
 				return cla_return;
 			}
 		
