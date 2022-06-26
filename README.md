@@ -54,7 +54,11 @@ g++ -o client client.cpp -fno-stack-protector -no-pie -lm
 
 ## 오류 수정
 
-## 프로그램 종료
+## 프로그램 종료   
+* **exit** 
+  ![exit](https://user-images.githubusercontent.com/74813313/175810107-e77b37f7-3a8e-4918-baf6-2b90fecaae85.png)
+* **srvofft** 
+  ![srvoff](https://user-images.githubusercontent.com/74813313/175810065-24eeac5e-5233-4756-81e6-bec6faa2ff94.png)
 
 ## 프로그램 구조 분석
 * 통신규약  
