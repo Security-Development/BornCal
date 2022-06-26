@@ -26,23 +26,39 @@ g++ -o client client.cpp -fno-stack-protector -no-pie -lm
 ## 프로그램 실행    
 * ./server 7904 → ./client  
 ## 계산 명령 수행
-* **!calc**   
-계산기에 넣을 연산자와, 데이터를 입력받을 수 있는 calc() 함수를 동작시킬 수 있다.    
-* **!cls**  
-시스템의 clear 커맨드를 동작시켜 커멘드창의 출력 결과를 모두 지운다.  
-* **!exit**  
-프로그램을 종료시키는 exit() 함수를 실행시킨다.  
-* **!srvoff**  
-server 측에 opcode 6를 보내 서버를 종료시킨다.  
-
-  ![정수 정수 덧셈](https://user-images.githubusercontent.com/74813313/175808469-ba05c4f9-c540-411e-bbde-b7715ae75641.png)    
+* 명령어   
+  > **!calc**   
+  피연산자와 연산자를 서버에 보낸다.    
+  **!cls**  
+  터미널창의 출력 결과 새로고침 한다.  
+  **!exit**  
+  프로그램을 종료시킨다.    
+  **!srvoff**  
+  서버를 종료시킨다.    
+  
+* **case 1**   
+30 + 20  
+  ![정수 정수 덧셈](https://user-images.githubusercontent.com/74813313/175808469-ba05c4f9-c540-411e-bbde-b7715ae75641.png)   
+* **case 2**   
+31 - 14.5  
   ![정수 실수 뺄셈](https://user-images.githubusercontent.com/74813313/175808514-fa1433f6-9174-4484-bde6-f86c735f5220.png)     
+* **case 3**     
+32.323 × 20  
   ![실수 정수 곱셈](https://user-images.githubusercontent.com/74813313/175808558-2a84b2ab-9d49-4fc2-a109-164789ee15ad.png)   
+* **case 4**   
+32.123 ÷ 12.4  
   ![실수 실수 나눗셈](https://user-images.githubusercontent.com/74813313/175808571-28a50c1e-0f3f-4753-9d37-094b2ae53dcd.png)  
- 
+* **case 5**  
+33333333 × 22222222  
+  ![오버플로우](https://user-images.githubusercontent.com/74813313/175809960-a4822ef0-27fb-4d0e-8bdb-71571285221f.png)    
+
 ## 오류 수정
 
-## 프로그램 종료
+## 프로그램 종료   
+* **exit** 
+  ![exit](https://user-images.githubusercontent.com/74813313/175810107-e77b37f7-3a8e-4918-baf6-2b90fecaae85.png)
+* **srvoff** 
+  ![srvoff](https://user-images.githubusercontent.com/74813313/175810065-24eeac5e-5233-4756-81e6-bec6faa2ff94.png)
 
 ## 프로그램 구조 분석
 * 통신규약  
