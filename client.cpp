@@ -155,15 +155,15 @@ int clac() {
 			continue;
 		}
 		if( typecheck >= INT_MAX) {
-				printf("오버플로우 발생");
-				cin.clear();  cin.ignore(1024, '\n');
-				continue;
-			} 
+			printf("오버플로우 발생");
+			cin.clear();  cin.ignore(1024, '\n');
+			continue;
+		} 
 			
-			if(typecheck < INT_MIN) {
-				printf("언더플로우 발생");
-				cin.clear();  cin.ignore(1024, '\n');
-				continue; 
+		if(typecheck < INT_MIN) {
+			printf("언더플로우 발생");
+			cin.clear();  cin.ignore(1024, '\n');
+			continue; 
 		}
 
 		if (typecheck - (int)typecheck == 0){	
@@ -193,16 +193,16 @@ int clac() {
 		}
 		
 		if( typecheck >= INT_MAX) {
-				printf("오버플로우 발생");
-				cin.clear();  cin.ignore(1024, '\n');
-				continue;
-			} 
+			printf("오버플로우 발생");
+			cin.clear();  cin.ignore(1024, '\n');
+			continue;
+		} 
 			
-			if(typecheck < INT_MIN) {
-				printf("언더플로우 발생");
-				cin.clear();  cin.ignore(1024, '\n');
-				continue; 
-			}
+		if(typecheck < INT_MIN) {
+			printf("언더플로우 발생");
+			cin.clear();  cin.ignore(1024, '\n');
+			continue; 
+		}
 
 		if (typecheck - (int)typecheck == 0){
 			cladata.flagnum2 = 1;
