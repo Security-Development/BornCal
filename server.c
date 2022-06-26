@@ -17,12 +17,32 @@ typedef struct Packet{
     char msg[50];
 } Packet;
 
+/*
 typedef struct claData {
     int opNum;
     double num1;
     double num2;
     double result; // ê²°ê³¼ê°’ ì €ì¥
-} claData;
+} claData;*/
+
+typedef struct _clacData 
+{
+	int opNum; // + - * / result srvoff, 1 2 3 4 5 6 
+ 
+	int flagnum1;  // int, double, none 1 2 3
+	int flagnum2; // int, double, none 1 2 3
+
+	int inum1; // iìˆ«ì1
+	int inum2; // iìˆ«ì2
+ 
+	double dnum1;  // dìˆ«ì1
+	double dnum2; // dìˆ«ì2
+ 
+	int flagresult;  // int, double, none 1 2 3 
+
+	int iresult; // iê²°ê³¼ ê°’
+	double dresult; // dê²°ê³¼ ê°’
+}_clacData;
 
 #define MAX_MSG_SIZE 50
 
@@ -31,38 +51,148 @@ void error_handling(char *msg){
     fputc('\n',stderr);
     exit(1);
 }
-
-double cal(claData cladata){            // calculate in accordance with claData
+ 
+_clacData cal(_clacData cladata){            // calculate in accordance with claData
     int n_point = 1;
-    switch(cladata.opNum)
+	struct _clacData cla_return = cladata;
+	double num1 = 0;
+	double num2 = 0;
+	 
+    switch(cladata.opNum)  
     {
-        case 1:
-            return cladata.num1 + cladata.num2;
+        case 1:		// plus+
+        	if (cladata.flagnum1 == 1 || cladata.flagnum2 == 1)	// µÎ ¼ö ¸ğµÎ Á¤¼öÀÏ ¶§ 
+        	{
+        		cla_return.flagresult = 1;
+        		
+        		cla_return.iresult = cladata.inum1 + cladata.inum2;
+        		return cla_return;  
+			}
+			
+        	else
+        	{
+        		cla_return.flagresult = 2;
+        		
+        		if (cladata.flagnum1 == 1) 	// ÇÏ³ª´Â ¹«Á¶°Ç ½Ç¼öÀÓÀ¸·Î Ã¹ ¹øÂ°°¡ Á¤¼ö¸é µÎ ¹øÂ°´Â ½Ç¼ö 
+        			d_result = cladata.inum1 + cladata.dnum1;	
+								
+        		else
+        		{
+        			cla_return.dresult += cladata.dnum1;
+        			if (cladata.flagnum2 == 1)
+        				cla_return.dresult += cladata.inum1;
+        			else
+        				cla_return.dresult += cladata.dnum2;
+				}
+				return cla_return;
+			} 
 
-        case 2:
-            return cladata.num1 - cladata.num2;
+        case 2:		// Minus-
+        	if (cladata.flagnum1 == 1 || cladata.flagnum2 == 1)	// µÎ ¼ö ¸ğµÎ Á¤¼öÀÏ ¶§ 
+        	{
+        		cla_return.flagresult = 1;
+        		
+        		cla_return.iresult = cladata.inum1 - cladata.inum2;
+        		return cla_return;
+			}
+			
+        	else
+        	{
+        		cla_return.flagresult = 2;
+        		
+        		if (cladata.flagnum1 == 1) 	// ÇÏ³ª´Â ¹«Á¶°Ç ½Ç¼öÀÓÀ¸·Î Ã¹ ¹øÂ°°¡ Á¤¼ö¸é µÎ ¹øÂ°´Â ½Ç¼ö 
+        			d_result = cladata.inum1 - cladata.dnum1;	
+								
+        		else
+        		{
+        			d_result += cladata.dnum1;
+        			if (cladata.flagnum2 == 1)
+        				d_result -= cladata.inum1;
+        			else
+        				d_result -= cladata.dnum2;
+				}
+				return d_result, 2;
+			}
 
-        case 3:
-            while (1)
-            {
-                if ( fmod(cladata.num1, 1.0f) == 0 && fmod(cladata.num2, 1.0f) == 0)
-                    break;
-                cladata.num1 *= 10;
-                cladata.num2 *= 10;
-                n_point *= 100;
-            }
-            return cladata.num1 * cladata.num2 / n_point;
+        case 3:		// Multiplication*
+			if (cladata.flagnum1 == 1 || cladata.flagnum2 == 1)
+			{
+				cla_return.flagresult = 1;
+				
+				cla_return.iresult = cladata.inum1 * cladata.inum2;
+				return cla_return;
+			}
+		
+			else
+			{
+				cla_return.flagresult = 2;
+				
+				if (cladata.flagnum1 == 1)
+				{
+					num1 = cladata.inum1;
+					num2 = cladata.dnum1;
+				}
+				else
+				{
+					num1 = cladata.dnum1;
+					if (cladata.flagnum2 == 1)
+						num2 = cladata.inum1;
+					else
+						num2 = cladata.dnum2;
+				}
+				
+				while (1)
+            	{
+                	if ( fmod(num1, 1.0f) == 0 && fmod(num2, 1.0f) == 0)
+                	    break;
+                	num1 *= 10;
+                	num2 *= 10;
+                	n_point *= 100;
+            	}
+            	
+            	cla_return.dresult = num1 * num2 / n_point;
+            	return cla_return;
+			}
 
-        case 4:
-            while (1)
-            {
-                if ( fmod(cladata.num1, 1.0f) == 0 && fmod(cladata.num2, 1.0f) == 0)
-                    break;
-                cladata.num1 *= 10;
-                cladata.num2 *= 10;
-                n_point *= 100;
-            }
-            return cladata.num1 / cladata.num2 / n_point;
+        case 4:		//division/ 
+        	if (cladata.flagnum1 == 1 || cladata.flagnum2 == 1)
+			{
+				cla_return.flagresult = 1;
+				
+				cla_return.iresult = cladata.inum1 / cladata.inum2;
+				return cla_return;
+			}
+        
+        	else
+        	{
+        		cla_return.flagresult = 2;
+				
+				if (cladata.flagnum1 == 1)
+				{
+					num1 = cladata.inum1;
+					num2 = cladata.dnum1;
+				}
+				else
+				{
+					num1 = cladata.dnum1;
+					if (cladata.flagnum2 == 1)
+						num2 = cladata.inum1;
+					else
+						num2 = cladata.dnum2;
+				}
+				
+				while (1)
+            	{
+                	if ( fmod(num1, 1.0f) == 0 && fmod(num2, 1.0f) == 0)
+                	    break;
+                	num1 *= 10;
+                	num2 *= 10;
+                	n_point *= 100;
+            	}
+            	
+            	cla_return.dresult = num1 / num2 / n_point;
+            	return cla_return
+			}
     }
 }
 
