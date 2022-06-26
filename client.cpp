@@ -24,19 +24,19 @@ struct _clacData
 	int flagnum1;  // int, double, none 1 2 3
 	int flagnum2; // int, double, none 1 2 3
 
-	int inum1; // i숫자2
+	int inum1; // i숫자1
 	int inum2; // i숫자2
 
-	double dnum1;  // d숫자1 입력
-	double dnum2; // d숫자2 입력	
+	double dnum1;  // d숫자1
+	double dnum2; // d숫자2
 
 	int flagresult;  // int, double, none 1 2 3
 
-	int iresult; // i결과 값 저장
-	double dresult; // d결과 값 저장
+	int iresult; // i결과 값
+	double dresult; // d결과 값
 };
 
-struct _clacData cladata = {0,2,2,0,0,0,0,2,0,0};
+struct _clacData cladata = {0,3,3,0,0,0,0,3,0,0};
 
 void error_handling(char *msg){
     fputs(msg, stderr);
