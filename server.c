@@ -65,7 +65,7 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
         	{
         		cla_return.flagresult = 1;
         		
-        		if ((cladata.inum1 + cladata.inum2) <= 2147483647 && (cladata.inum1 + cladata.inum2) >= -2147483648)
+        		if ((cladata.inum1 + cladata.inum2) <= 2147483647 || (cladata.inum1 + cladata.inum2) >= -2147483648)
         		{
         			cla_return.iresult = cladata.inum1 + cladata.inum2;
 				}
@@ -107,7 +107,7 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
         	{
         		cla_return.flagresult = 1;
         		
-        		if ((cladata.inum1 - cladata.inum2) <= 2147483647 && (cladata.inum1 - cladata.inum2) >= -2147483648)
+        		if ((cladata.inum1 - cladata.inum2) <= 2147483647 || (cladata.inum1 - cladata.inum2) >= -2147483648)
         		{
         			cla_return.iresult = cladata.inum1 - cladata.inum2;
 				}
@@ -142,7 +142,7 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
 			{
 				cla_return.flagresult = 1;
 				
-				if ((cladata.inum1 * cladata.inum2) <= 2147483647 && (cladata.inum1 * cladata.inum2) >= -2147483648)
+				if ((cladata.inum1 * cladata.inum2) <= 2147483647 || (cladata.inum1 * cladata.inum2) >= -2147483648)
         		{
         			cla_return.iresult = cladata.inum1 * cladata.inum2;
 				}
@@ -190,7 +190,7 @@ _clacData cal(_clacData cladata){            // calculate in accordance with cla
 			{
 				cla_return.flagresult = 1;
 				
-				if ((cladata.inum1 / cladata.inum2) <= 2147483647 && (cladata.inum1 / cladata.inum2) >= -2147483648)
+				if ((cladata.inum1 / cladata.inum2) <= 2147483647 || (cladata.inum1 / cladata.inum2) >= -2147483648)
         		{
         			cla_return.iresult = cladata.inum1 / cladata.inum2;
 				}
@@ -285,6 +285,8 @@ int main(int argc, char  *argv[]){
             }
             printf("packet_len : %d\n",packet_len);
             printf("_clacdata.opNum : %d\n",_clacdata.opNum);
+            printf("_clacdata.flagnum1 : %d\n",_clacdata.flagnum1);
+            printf("_clacdata.flagnum2 : %d\n",_clacdata.flagnum2);
             printf("_clacdata.inum1 : %d\n",_clacdata.inum1);
             printf("_clacdata.inum2 : %d\n",_clacdata.inum2);
 
@@ -294,6 +296,7 @@ int main(int argc, char  *argv[]){
             printf("answer.iresult : %d\n",answer.iresult);
             printf("answer.dresult : %lf\n",answer.dresult);
             //printf("answer. : %d\n",answer.);
+            printf("answer.opNum : %d\n",answer.opNum);
 
             //a,b = cal(_clacdata);
             //sleep(1);
