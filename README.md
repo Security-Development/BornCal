@@ -19,7 +19,7 @@
 **Program compile**  
 * Server  
 ```
-gcc -o server server.cpp -fno-stack-protector -no-pie -lm
+gcc -o server server.c -fno-stack-protector -no-pie -lm
 ```  
 * Client  
 ```  
