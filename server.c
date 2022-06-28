@@ -197,7 +197,7 @@ _clacData cal(_clacData cladata) { // calculate in accordance with claData
             cla_return.flagresult = 1;
 
             if ((cladata.inum1 / cladata.inum2) <= 2147483647 || (cladata.inum1 / cladata.inum2) >= -2147483648) {
-              cla_return.iresult = cladata.inum1 / cladata.inum2;
+                cla_return.dresult = (double)cladata.inum1 / (double) cladata.inum2;
             } else {
               cla_return.opNum = 100;
               return cla_return;
