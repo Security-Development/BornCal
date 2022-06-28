@@ -20,10 +20,12 @@
 * Server  
 ```
 gcc -o server server.c -fno-stack-protector -no-pie -lm
+./server 7904
 ```  
 * Client  
 ```  
 g++ -o client client.cpp -fno-stack-protector -no-pie -lm
+./client
 ```  
 ## 프로그램 실행    
 * ./server 7904 → ./client  
